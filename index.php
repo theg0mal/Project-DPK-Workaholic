@@ -85,8 +85,7 @@
   }
 
   .nav-post:hover { background: var(--accent) !important; color: white !important; }
-
-  /* HERO */
+/* HERO */
   .hero {
     padding: 72px 5vw 56px;
     max-width: 1200px;
@@ -752,8 +751,7 @@
 
     .nav-btn-login { padding: 6px 12px; font-size: 12px; }
     .nav-btn-signup { padding: 6px 12px; font-size: 12px; }
-
-    /* HERO */
+/* HERO */
     .hero {
       padding: 36px 16px 32px;
     }
@@ -2019,6 +2017,74 @@
 
 
 
+
+  /* ===== ABOUT PAGE ===== */
+  .about-wrap { max-width: 1100px; margin: 0 auto; padding: 52px 5vw 80px; animation: fadeUp 0.4s ease both; }
+  .about-hero { display:grid; grid-template-columns: 1.1fr 0.9fr; gap:36px; align-items:end; margin-bottom:36px; }
+  .about-title { font-family:'DM Serif Display', serif; font-size:clamp(32px, 4vw, 48px); line-height:1.12; letter-spacing:-1px; color:var(--ink); margin:12px 0 14px; }
+  .about-lead { font-size:16px; color:var(--ink-soft); line-height:1.75; max-width:620px; }
+  .about-panel { background:var(--paper); border:1px solid var(--warm-border); border-radius:12px; padding:22px; }
+  .about-panel-title { font-family:'DM Serif Display', serif; font-size:20px; color:var(--ink); margin-bottom:12px; }
+  .about-panel p { font-size:14px; color:var(--ink-soft); line-height:1.75; margin-bottom:10px; }
+  .about-stats { display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-bottom:28px; }
+  .about-stat { background:var(--paper); border:1px solid var(--warm-border); border-radius:12px; padding:18px; }
+  .about-stat strong { display:block; font-family:'DM Serif Display', serif; font-size:28px; color:var(--accent); margin-bottom:2px; }
+  .about-stat span { font-size:12px; color:var(--ink-muted); }
+  .about-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+  .about-card { background:var(--paper); border:1px solid var(--warm-border); border-radius:12px; padding:20px; }
+  .about-card h3 { font-family:'DM Serif Display', serif; font-size:18px; color:var(--ink); margin-bottom:8px; }
+  .about-card p { font-size:13px; color:var(--ink-soft); line-height:1.7; }
+  @media (max-width: 768px) { .about-wrap { padding:32px 16px 60px; } .about-hero, .about-grid, .about-stats { grid-template-columns:1fr; } }
+
+
+  /* ===== CAREER HELP PAGE ===== */
+  .career-help-wrap { max-width: 1100px; margin: 0 auto; padding: 52px 5vw 80px; animation: fadeUp 0.4s ease both; }
+  .career-help-hero { display:grid; grid-template-columns: 1.05fr 0.95fr; gap:32px; align-items:center; margin-bottom:30px; }
+  .career-help-title { font-family:'DM Serif Display', serif; font-size:clamp(32px, 4vw, 48px); line-height:1.12; letter-spacing:-1px; color:var(--ink); margin:12px 0 14px; }
+  .career-help-lead { font-size:16px; color:var(--ink-soft); line-height:1.75; max-width:620px; }
+  .career-help-panel { background:var(--ink); color:white; border-radius:12px; padding:24px; border:1px solid rgba(255,255,255,0.08); }
+  .career-help-panel-title { font-family:'DM Serif Display', serif; font-size:22px; margin-bottom:12px; }
+  .career-help-panel p { color:rgba(255,255,255,0.72); font-size:14px; line-height:1.75; margin-bottom:16px; }
+  .career-help-actions { display:flex; gap:10px; flex-wrap:wrap; }
+  .career-help-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-bottom:24px; }
+  .career-help-card { background:var(--paper); border:1px solid var(--warm-border); border-radius:12px; padding:22px; }
+  .career-help-icon { width:42px; height:42px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:var(--accent-light); color:var(--accent); font-size:13px; font-weight:700; margin-bottom:14px; }
+  .career-help-card h3 { font-family:'DM Serif Display', serif; font-size:20px; color:var(--ink); margin-bottom:8px; }
+  .career-help-card p { font-size:13px; color:var(--ink-soft); line-height:1.7; margin-bottom:14px; }
+  .career-help-list { display:grid; gap:8px; }
+  .career-help-list span { display:flex; gap:8px; align-items:flex-start; font-size:13px; color:var(--ink-soft); }
+  .career-help-list span::before { content:'✓'; color:var(--accent); font-weight:700; flex-shrink:0; }
+  .career-help-flow { background:var(--paper); border:1px solid var(--warm-border); border-radius:12px; padding:22px; }
+  .career-help-flow-title { font-family:'DM Serif Display', serif; font-size:20px; color:var(--ink); margin-bottom:14px; }
+  .career-help-steps { display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; }
+  .career-help-step { background:var(--cream); border:1px solid var(--warm-border); border-radius:10px; padding:16px; }
+  .career-help-step strong { display:block; color:var(--accent); font-size:12px; margin-bottom:6px; }
+  .career-help-step span { display:block; color:var(--ink-soft); font-size:13px; line-height:1.55; }
+  @media (max-width: 768px) { .career-help-wrap { padding:32px 16px 60px; } .career-help-hero, .career-help-grid, .career-help-steps { grid-template-columns:1fr; } }
+  .career-testimonials { margin-top:24px; }
+  .career-section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:14px; }
+  .career-section-title { font-family:'DM Serif Display', serif; font-size:24px; color:var(--ink); }
+  .career-section-sub { font-size:13px; color:var(--ink-muted); line-height:1.6; max-width:520px; }
+  .career-testimonial-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-bottom:24px; }
+  .career-testimonial-card { background:var(--paper); border:1px solid var(--warm-border); border-radius:12px; padding:20px; }
+  .career-testimonial-top { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .career-testimonial-avatar { width:42px; height:42px; border-radius:50%; background:var(--accent); color:white; display:flex; align-items:center; justify-content:center; font-family:'DM Serif Display', serif; font-size:16px; flex-shrink:0; }
+  .career-testimonial-name { font-size:14px; font-weight:700; color:var(--ink); }
+  .career-testimonial-role { font-size:12px; color:var(--ink-muted); margin-top:2px; }
+  .career-testimonial-text { font-size:13px; color:var(--ink-soft); line-height:1.75; margin-bottom:12px; }
+  .career-testimonial-badge { display:inline-flex; padding:5px 10px; border-radius:99px; background:var(--accent-light); color:var(--accent); font-size:12px; font-weight:700; }
+  .career-feedback { display:grid; grid-template-columns:0.9fr 1.1fr; gap:18px; align-items:start; background:var(--paper); border:1px solid var(--warm-border); border-radius:12px; padding:22px; }
+  .career-feedback-copy h3 { font-family:'DM Serif Display', serif; font-size:22px; color:var(--ink); margin-bottom:8px; }
+  .career-feedback-copy p { font-size:13px; color:var(--ink-soft); line-height:1.75; }
+  .career-feedback-form { display:grid; gap:12px; }
+  .career-feedback-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .career-feedback-input, .career-feedback-select, .career-feedback-textarea { width:100%; border:1px solid var(--warm-border); border-radius:8px; background:var(--cream); color:var(--ink); font-family:'DM Sans', sans-serif; font-size:13px; padding:11px 12px; outline:none; }
+  .career-feedback-textarea { min-height:116px; resize:vertical; line-height:1.6; }
+  .career-feedback-input:focus, .career-feedback-select:focus, .career-feedback-textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(45,106,79,0.1); background:var(--paper); }
+  .career-feedback-submit { justify-self:end; padding:11px 22px; border:none; border-radius:9px; background:var(--accent); color:white; font-family:'DM Sans', sans-serif; font-size:13px; font-weight:700; cursor:pointer; }
+  .career-feedback-submit:hover { background:#1B5235; }
+  @media (max-width: 768px) { .career-section-head, .career-feedback { display:block; } .career-testimonial-grid, .career-feedback-row { grid-template-columns:1fr; } .career-feedback-copy { margin-bottom:16px; } .career-feedback-submit { width:100%; } }
+
   /* ===== PROFILE PAGE ===== */
   .profile-wrap { max-width: 900px; margin: 0 auto; padding: 40px 5vw 80px; animation: fadeUp 0.4s ease both; }
   .profile-cover { height: 140px; border-radius: 14px 14px 0 0; background: linear-gradient(135deg, #1A1814 0%, #2D6A4F 100%); }
@@ -2078,6 +2144,7 @@
     <li><a href="#" onclick="showPage('home');return false;">Lowongan</a></li>
     <li><a href="#" onclick="showPage('companies');return false;">Perusahaan</a></li>
     <li><a href="#" onclick="showPage('company-login');return false;">Untuk Perusahaan</a></li>
+    <li><a href="#" onclick="showPage('about');return false;">About Us</a></li>
     <li id="nav-auth-btns" style="display:flex;gap:8px;list-style:none">
       <button class="nav-btn-login" onclick="showPage('login')">Masuk</button>
       <button class="nav-btn-signup" onclick="showPage('signup')">Daftar</button>
@@ -2097,7 +2164,7 @@
   <h1>Temukan pekerjaan yang <em>tepat</em> untukmu.</h1>
   <p class="hero-sub">Ribuan lowongan dari perusahaan terpercaya di seluruh Indonesia. Lamar cepat, langsung ke rekruter.</p>
   <div class="search-wrap">
-    <input type="text" id="search-input" placeholder="Cari posisi, perusahaan, atau kata kunci…" oninput="filterJobs()">
+    <input type="text" id="search-input" placeholder="Cari posisi, perusahaan, atau kata kunci..." oninput="filterJobs()">
     <button class="btn-search" onclick="filterJobs()">Cari</button>
   </div>
   <div class="hero-stats">
@@ -2439,7 +2506,8 @@ function sortJobs(val) {
   if (val === 'gaji') filteredJobs.sort(function(a,b){return b.salaryRaw-a.salaryRaw});
   else if (val === 'nama') filteredJobs.sort(function(a,b){return a.title.localeCompare(b.title)});
   else filteredJobs.sort(function(a,b){return a.id-b.id});
-  renderJobs();
+  
+renderJobs();
 }
 
 function resetFilters() {
@@ -2448,7 +2516,8 @@ function resetFilters() {
   currentTag = 'semua';
   document.querySelectorAll('.tag').forEach(function(t,i){t.classList.toggle('active',i===0)});
   filteredJobs = jobs.slice();
-  renderJobs();
+  
+renderJobs();
 }
 
 function openJob(id) {
@@ -2497,6 +2566,18 @@ function openApplyPage(id) {
   setLogoElement(logoEl, j);
   document.getElementById('apply-job-title-el').textContent = j.title;
   document.getElementById('apply-company-el').textContent = j.company + ' · ' + j.location;
+  var cvInput = document.getElementById('ap-cv');
+  if (cvInput) cvInput.value = '';
+  var cvLabel = document.getElementById('cv-label');
+  if (cvLabel) cvLabel.textContent = 'Klik untuk upload CV / Resume';
+  var cvArea = document.getElementById('cv-upload-area');
+  if (cvArea) cvArea.classList.remove('selected', 'error');
+  var letterInput = document.getElementById('ap-letter-file');
+  if (letterInput) letterInput.value = '';
+  var letterLabel = document.getElementById('letter-label');
+  if (letterLabel) letterLabel.textContent = 'Klik untuk upload surat lamaran';
+  var letterArea = document.getElementById('letter-upload-area');
+  if (letterArea) letterArea.classList.remove('selected', 'error');
   // Reset to step 1
   applyNextStep(1, true);
   showPage('apply');
@@ -2505,6 +2586,15 @@ function openApplyPage(id) {
 var currentApplyStep = 1;
 
 function applyNextStep(step, reset) {
+  if (step > 2 && currentApplyStep === 2) {
+    var cvInputCheck = document.getElementById('ap-cv');
+    var cvAreaCheck = document.getElementById('cv-upload-area');
+    if (!cvInputCheck || !cvInputCheck.files || !cvInputCheck.files[0]) {
+      if (cvAreaCheck) cvAreaCheck.classList.add('error');
+      showToast('Upload CV / resume terlebih dulu!');
+      return;
+    }
+  }
   for(var i=1;i<=4;i++){
     var el = document.getElementById('apply-step-'+i);
     if(el) el.style.display = (i===step)?'block':'none';
@@ -2536,24 +2626,69 @@ function buildReview(){
   var salary = document.getElementById('ap-salary').value || '-';
   var start = document.getElementById('ap-start').value || '-';
   var skills = document.getElementById('ap-skills').value || '-';
+  var cvInput = document.getElementById('ap-cv');
+  var cvName = (cvInput && cvInput.files && cvInput.files[0]) ? cvInput.files[0].name : '-';
+  var letterInput = document.getElementById('ap-letter-file');
+  var letterName = (letterInput && letterInput.files && letterInput.files[0]) ? letterInput.files[0].name : '-';
   var items = [
     ['Nama','ap-name',name],['Email','ap-email',email],['Nomor HP','ap-phone',phone],
     ['Domisili','ap-city',city],['Pendidikan','ap-edu',edu],['Pengalaman','ap-exp',exp],
-    ['Ekspektasi Gaji','ap-salary',salary],['Mulai Bekerja','ap-start',start],['Skill','ap-skills',skills]
+    ['Ekspektasi Gaji','ap-salary',salary],['Mulai Bekerja','ap-start',start],['CV / Resume','ap-cv',cvName],['File Surat Lamaran','ap-letter-file',letterName],['Skill','ap-skills',skills]
   ];
   document.getElementById('apply-review-content').innerHTML = items.map(function(it){
     return '<div class="cp-info-item"><span class="cp-info-label">'+it[0]+'</span><span class="cp-info-val">'+it[2]+'</span></div>';
   }).join('');
 }
 
-function fakeUpload(type){
-  if(type==='cv'){
-    document.getElementById('cv-label').textContent = '✅ CV berhasil diupload (curriculum_vitae.pdf)';
-  } else {
-    document.getElementById('letter-label').textContent = '✅ Surat lamaran berhasil diupload (cover_letter.pdf)';
+function handleCvFile(input) {
+  var label = document.getElementById('cv-label');
+  var area = document.getElementById('cv-upload-area');
+  if (!input || !input.files || !input.files[0]) return;
+  var file = input.files[0];
+  var allowed = ['application/pdf', 'image/jpeg', 'image/png', 'image/webp'];
+  if (allowed.indexOf(file.type) === -1) {
+    input.value = '';
+    if (area) area.classList.add('error');
+    if (label) label.textContent = 'Format harus PDF, JPG, PNG, atau WEBP';
+    showToast('Format CV harus PDF atau gambar!');
+    return;
   }
+  if (file.size > 5 * 1024 * 1024) {
+    input.value = '';
+    if (area) area.classList.add('error');
+    if (label) label.textContent = 'Ukuran file melebihi 5 MB';
+    showToast('Ukuran CV maksimal 5 MB!');
+    return;
+  }
+  if (area) area.classList.remove('error');
+  if (area) area.classList.add('selected');
+  if (label) label.textContent = 'CV dipilih: ' + file.name;
 }
 
+function handleLetterFile(input) {
+  var label = document.getElementById('letter-label');
+  var area = document.getElementById('letter-upload-area');
+  if (!input || !input.files || !input.files[0]) return;
+  var file = input.files[0];
+  var allowed = ['application/pdf', 'image/jpeg', 'image/png', 'image/webp'];
+  if (allowed.indexOf(file.type) === -1) {
+    input.value = '';
+    if (area) area.classList.add('error');
+    if (label) label.textContent = 'Format harus PDF, JPG, PNG, atau WEBP';
+    showToast('Format surat lamaran harus PDF atau gambar!');
+    return;
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    input.value = '';
+    if (area) area.classList.add('error');
+    if (label) label.textContent = 'Ukuran file melebihi 5 MB';
+    showToast('Ukuran surat lamaran maksimal 5 MB!');
+    return;
+  }
+  if (area) area.classList.remove('error');
+  if (area) area.classList.add('selected');
+  if (label) label.textContent = 'Surat lamaran dipilih: ' + file.name;
+}
 function submitApplication() {
   var formData = new FormData();
   formData.append('lowongan_id', currentJobId || 0);
@@ -2565,6 +2700,13 @@ function submitApplication() {
   formData.append('pengalaman',  document.getElementById('ap-exp').value);
   formData.append('gaji',        document.getElementById('ap-salary').value);
   formData.append('cover_letter',document.getElementById('ap-coverletter').value);
+
+  var cvInput = document.getElementById('ap-cv');
+  if (!cvInput || !cvInput.files || !cvInput.files[0]) { showToast('Upload CV / resume terlebih dulu!'); applyNextStep(2); return; }
+  formData.append('cv_resume', cvInput.files[0]);
+
+  var letterInput = document.getElementById('ap-letter-file');
+  if (letterInput && letterInput.files && letterInput.files[0]) formData.append('cover_letter_file', letterInput.files[0]);
 
   fetch('lamar.php', { method: 'POST', body: formData })
     .then(res => res.json())
@@ -2601,7 +2743,17 @@ document.addEventListener('keydown', function(e){
 var companies = [];
 var loggedInType = null;
 function escapeHtml(value) { return String(value == null ? '' : value).replace(/[&<>'"]/g, function(ch){ return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]; }); }
-function loadJobs() { fetch('list_jobs.php').then(function(res){return res.json();}).then(function(res){ if(res.status==='ok'){ jobs=res.data; filteredJobs=jobs.slice(); renderJobs(); } }); }
+function loadJobs() {
+  fetch('list_jobs.php')
+    .then(function(res){ return res.json(); })
+    .then(function(res){
+      if (res.status === 'ok') {
+        jobs = res.data;
+        filteredJobs = jobs.slice();
+        renderJobs();
+      }
+    });
+}
 function loadCompanies() { fetch('list_companies.php').then(function(res){return res.json();}).then(function(res){ if(res.status==='ok'){ companies=res.data; renderCompanies(); } }); }
 function renderCompanies() { var grid=document.getElementById('companies-grid'); if(!grid)return; if(!companies.length){grid.innerHTML='<div class="profile-empty">Belum ada perusahaan terdaftar.</div>';return;} grid.innerHTML=companies.map(function(c,i){return '<div class="company-card" onclick="openCompanyProfile('+c.id+')" style="animation-delay:'+(i*0.04)+'s"><div class="cc-top"><div class="cc-logo" style="background:'+(c.logoUrl ? 'var(--paper)' : c.logoBg)+';color:'+c.logoCol+'">'+logoContent(c)+'</div><div><div class="cc-name">'+escapeHtml(c.name)+'</div><div class="cc-industry">'+escapeHtml(c.industry)+' · '+escapeHtml(c.city)+'</div></div></div><div class="cc-desc">'+escapeHtml(c.desc)+'</div><div class="cc-meta"><span class="cc-pill">'+c.jobs+' lowongan aktif</span><span class="cc-pill">'+escapeHtml(c.website)+'</span></div></div>';}).join(''); }
 function openCompanyProfile(id) { var c=companies.find(function(x){return x.id===id;}); if(!c)return; var related=jobs.filter(function(j){return j.company_id===id;}); document.getElementById('cp-wrap').innerHTML='<div class="cp-cover"></div><div class="cp-header"><div class="cp-logo-wrap"><div class="cp-logo" style="background:'+(c.logoUrl ? 'var(--paper)' : c.logoBg)+';color:'+c.logoCol+'">'+logoContent(c)+'</div><div><div class="cp-name">'+escapeHtml(c.name)+'</div><div class="cp-tagline">'+escapeHtml(c.tagline||c.industry+' · '+c.city)+'</div></div></div><div class="cp-stats"><div class="cp-stat"><span class="cp-stat-val">'+c.jobs+'</span><span class="cp-stat-lbl">Lowongan aktif</span></div><div class="cp-stat"><span class="cp-stat-val">'+escapeHtml(c.city)+'</span><span class="cp-stat-lbl">Lokasi</span></div><div class="cp-stat"><span class="cp-stat-val">'+escapeHtml(c.industry)+'</span><span class="cp-stat-lbl">Industri</span></div></div></div><div class="cp-body"><div><div class="cp-section"><div class="cp-section-title">Tentang Perusahaan</div><p>'+escapeHtml(c.desc)+'</p></div><div class="cp-section"><div class="cp-section-title">Kandidat yang Dicari</div><p>'+escapeHtml(c.looking)+'</p></div></div><div><div class="cp-section"><div class="cp-section-title">Informasi</div><div class="cp-info-list"><div class="cp-info-item"><span class="cp-info-label">Email</span><span class="cp-info-val">'+escapeHtml(c.email)+'</span></div><div class="cp-info-item"><span class="cp-info-label">Website</span><span class="cp-info-val">'+escapeHtml(c.website)+'</span></div></div></div><div class="cp-section"><div class="cp-section-title">Lowongan Aktif</div>'+(related.length?related.map(function(j){return '<div class="cp-job-item" onclick="openJob('+j.id+')"><div class="cp-job-title">'+escapeHtml(j.title)+'</div><div class="cp-job-type">'+escapeHtml(j.type)+'</div></div>';}).join(''):'<div class="profile-empty">Belum ada lowongan aktif.</div>')+'</div></div></div>'; showPage('company-profile'); }
@@ -2612,6 +2764,8 @@ function loadCompanyDashboard(){fetch('company_session.php').then(function(r){re
 function renderCompanyJobs(items){var list=document.getElementById('cd-job-list');if(!list)return;if(!items.length){list.innerHTML='<div class="profile-empty">Belum ada lowongan.</div>';return;}list.innerHTML=items.map(function(j){return '<div class="company-job-row"><div class="company-job-row-title">'+escapeHtml(j.judul)+'</div><div class="company-job-row-meta">'+escapeHtml(j.lokasi)+' · '+escapeHtml(j.tipe)+' · '+escapeHtml(j.status)+'</div></div>';}).join('');}
 function saveCompanyProfile(){var fd=new FormData();fd.append('nama_perusahaan',document.getElementById('cd-name').value.trim());fd.append('industri',document.getElementById('cd-industry').value.trim());fd.append('kota',document.getElementById('cd-city').value.trim());fd.append('website',document.getElementById('cd-website').value.trim());fd.append('tagline',document.getElementById('cd-tagline').value.trim());fd.append('deskripsi',document.getElementById('cd-desc').value.trim());fd.append('cari_kandidat',document.getElementById('cd-looking').value.trim());fetch('update_company_profile.php',{method:'POST',body:fd}).then(function(r){return r.json();}).then(function(d){if(d.status==='ok'){showToast(d.pesan);loggedInUser=d.nama;document.getElementById('nav-username').textContent=d.nama;loadCompanyDashboard();loadCompanies();}else showToast(d.pesan);}).catch(function(){showToast('Gagal menyimpan company profile!');});}
 function createCompanyJob(){var fd=new FormData();fd.append('judul',document.getElementById('job-title-new').value.trim());fd.append('lokasi',document.getElementById('job-location-new').value.trim());fd.append('tipe',document.getElementById('job-type-new').value);fd.append('mode_kerja',document.getElementById('job-mode-new').value);fd.append('pengalaman',document.getElementById('job-exp-new').value.trim());fd.append('gaji_min',document.getElementById('job-salary-min-new').value);fd.append('gaji_max',document.getElementById('job-salary-max-new').value);fd.append('deskripsi',document.getElementById('job-desc-new').value.trim());fd.append('kualifikasi',document.getElementById('job-qual-new').value.trim());fetch('tambah_lowongan.php',{method:'POST',body:fd}).then(function(r){return r.json();}).then(function(d){if(d.status==='ok'){showToast(d.pesan);['job-title-new','job-location-new','job-exp-new','job-salary-min-new','job-salary-max-new','job-desc-new','job-qual-new'].forEach(function(id){document.getElementById(id).value='';});loadCompanyDashboard();loadJobs();loadCompanies();}else if(d.status==='login'){showPage('company-login');showToast(d.pesan);}else showToast(d.pesan);}).catch(function(){showToast('Gagal menambah lowongan!');});}
+
+
 renderJobs();
 loadJobs();
 loadCompanies();
@@ -2970,18 +3124,20 @@ function doLogout() {
   <div id="apply-step-2" style="display:none">
     <div class="apply-section">
       <div class="apply-section-title">Upload CV / Resume *</div>
-      <div class="upload-area" onclick="fakeUpload('cv')">
+      <div class="upload-area" id="cv-upload-area" onclick="document.getElementById('ap-cv').click()">
+        <input class="upload-file-input" type="file" id="ap-cv" accept="application/pdf,image/jpeg,image/png,image/webp" onchange="handleCvFile(this)">
         <div class="upload-icon">📄</div>
-        <div class="upload-label" id="cv-label">Klik untuk upload CV</div>
-        <div class="upload-hint">PDF, DOC, atau DOCX — maks. 5 MB</div>
+        <div class="upload-label" id="cv-label">Klik untuk upload CV / Resume</div>
+        <div class="upload-hint">PDF, JPG, PNG, atau WEBP — maks. 5 MB</div>
       </div>
     </div>
     <div class="apply-section">
       <div class="apply-section-title">Surat Lamaran (opsional)</div>
-      <div class="upload-area" onclick="fakeUpload('letter')">
-        <div class="upload-icon">✉️</div>
+      <div class="upload-area" id="letter-upload-area" onclick="document.getElementById('ap-letter-file').click()">
+        <input class="upload-file-input" type="file" id="ap-letter-file" accept="application/pdf,image/jpeg,image/png,image/webp" onchange="handleLetterFile(this)">
+        <div class="upload-icon">✉</div>
         <div class="upload-label" id="letter-label">Klik untuk upload surat lamaran</div>
-        <div class="upload-hint">PDF atau DOC — maks. 5 MB</div>
+        <div class="upload-hint">PDF, JPG, PNG, atau WEBP — maks. 5 MB</div>
       </div>
     </div>
     <div class="apply-section">
@@ -3069,6 +3225,145 @@ function doLogout() {
 <div class="cp-wrap" id="cp-wrap"></div>
 </div>
 
+<!-- ABOUT PAGE -->
+<div id="page-about" class="page">
+<div class="about-wrap">
+  <div class="about-hero">
+    <div>
+      <div class="hero-kicker">Tentang Workaholic</div>
+      <div class="about-title">Menghubungkan talenta dengan perusahaan yang tepat.</div>
+      <p class="about-lead">Workaholic dibuat untuk membantu pencari kerja menemukan peluang yang relevan, sekaligus memberi perusahaan ruang yang rapi untuk memperkenalkan diri dan membuka lowongan secara bertanggung jawab.</p>
+    </div>
+    <div class="about-panel">
+      <div class="about-panel-title">Kenapa Workaholic ada?</div>
+      <p>Banyak pencari kerja butuh informasi lowongan yang jelas, bukan sekadar daftar posisi. Di sisi lain, perusahaan butuh tempat untuk menunjukkan budaya, kebutuhan kandidat, dan proses rekrutmen secara lebih manusiawi.</p>
+      <p>Karena itu Workaholic menggabungkan job portal, company profile, profil pelamar, dan dashboard perusahaan dalam satu alur.</p>
+    </div>
+  </div>
+
+  <div class="about-stats">
+    <div class="about-stat"><strong>12+</strong><span>Lowongan demo aktif</span></div>
+    <div class="about-stat"><strong>2</strong><span>Jenis akun: pencari kerja dan perusahaan</span></div>
+    <div class="about-stat"><strong>1</strong><span>Tempat untuk profil, lamaran, dan lowongan</span></div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-card"><h3>Untuk pencari kerja</h3><p>Pengguna bisa membuat akun, melengkapi profil, mengunggah foto, melihat company profile, dan mengirim lamaran ke lowongan yang tersedia.</p></div>
+    <div class="about-card"><h3>Untuk perusahaan</h3><p>Admin perusahaan bisa membuat company profile, mengunggah logo, menjelaskan kandidat yang dicari, dan menerbitkan lowongan setelah login.</p></div>
+    <div class="about-card"><h3>Nilai utama</h3><p>Workaholic mengutamakan transparansi, profil yang informatif, dan pengalaman melamar kerja yang sederhana namun tetap profesional.</p></div>
+  </div>
+</div>
+</div>
+
+<!-- CAREER HELP PAGE -->
+<div id="page-career-help" class="page">
+<div class="career-help-wrap">
+  <div class="career-help-hero">
+    <div>
+      <div class="hero-kicker">Konsultasi Karir</div>
+      <div class="career-help-title">Dapatkan bantuan untuk melamar dengan lebih percaya diri.</div>
+      <p class="career-help-lead">Tim Workaholic membantu kamu menyiapkan dokumen, latihan interview, dan menemukan lowongan yang paling sesuai dengan profil, pengalaman, serta target karirmu.</p>
+    </div>
+    <div class="career-help-panel">
+      <div class="career-help-panel-title">Mulai dari profilmu</div>
+      <p>Lengkapi profil Workaholic agar rekomendasi karir, saran CV, dan daftar lowongan bisa dibuat lebih relevan.</p>
+      <div class="career-help-actions">
+        <button class="btn-cta-white" onclick="openProfile()">Lengkapi Profil</button>
+        <button class="btn-cta-outline" onclick="showPage('home')">Lihat Lowongan</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="career-help-grid">
+    <div class="career-help-card">
+      <div class="career-help-icon">CV</div>
+      <h3>Review CV</h3>
+      <p>Kami bantu cek struktur, isi, kata kunci, dan keterbacaan CV supaya lebih mudah dipahami rekruter.</p>
+      <div class="career-help-list">
+        <span>Perbaikan ringkasan profil dan pengalaman</span>
+        <span>Saran kata kunci sesuai posisi target</span>
+        <span>Masukan agar CV lebih rapi dan profesional</span>
+      </div>
+    </div>
+    <div class="career-help-card">
+      <div class="career-help-icon">Q&A</div>
+      <h3>Persiapan Interview</h3>
+      <p>Latihan menjawab pertanyaan umum dan teknis dengan alur cerita yang jelas, singkat, dan meyakinkan.</p>
+      <div class="career-help-list">
+        <span>Simulasi pertanyaan HR dan user</span>
+        <span>Latihan menjelaskan pengalaman kerja</span>
+        <span>Tips menjawab ekspektasi gaji dan motivasi</span>
+      </div>
+    </div>
+    <div class="career-help-card">
+      <div class="career-help-icon">JOB</div>
+      <h3>Rekomendasi Lowongan</h3>
+      <p>Kami bantu mencocokkan profilmu dengan lowongan yang sesuai dari sisi skill, lokasi, industri, dan level pengalaman.</p>
+      <div class="career-help-list">
+        <span>Kurasi lowongan berdasarkan profil</span>
+        <span>Saran posisi yang realistis untuk dilamar</span>
+        <span>Arah pengembangan skill untuk peluang berikutnya</span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="career-testimonials">
+    <div class="career-section-head">
+      <div>
+        <div class="career-section-title">Cerita sukses dari pengguna Workaholic</div>
+        <div class="career-section-sub">Beberapa pengguna berhasil memperbaiki cara melamar, lebih siap interview, dan mendapatkan pekerjaan lewat proses yang lebih terarah.</div>
+      </div>
+    </div>
+    <div class="career-testimonial-grid" id="career-testimonial-list">
+      <div class="career-testimonial-card">
+        <div class="career-testimonial-top"><div class="career-testimonial-avatar">AP</div><div><div class="career-testimonial-name">Aulia Putri</div><div class="career-testimonial-role">Frontend Developer, Jakarta</div></div></div>
+        <div class="career-testimonial-text">Setelah CV direview, pengalaman magangku jadi lebih jelas dibaca. Dua minggu kemudian aku dapat panggilan interview dan akhirnya diterima sebagai Frontend Developer.</div>
+        <div class="career-testimonial-badge">Diterima kerja</div>
+      </div>
+      <div class="career-testimonial-card">
+        <div class="career-testimonial-top"><div class="career-testimonial-avatar">RA</div><div><div class="career-testimonial-name">Rafi Alamsyah</div><div class="career-testimonial-role">Data Analyst, Bandung</div></div></div>
+        <div class="career-testimonial-text">Latihan interview sangat membantu. Aku jadi tahu cara menjelaskan proyek data dengan runtut, bukan cuma menyebut tools yang pernah dipakai.</div>
+        <div class="career-testimonial-badge">Lolos interview</div>
+      </div>
+      <div class="career-testimonial-card">
+        <div class="career-testimonial-top"><div class="career-testimonial-avatar">NS</div><div><div class="career-testimonial-name">Nadya Safira</div><div class="career-testimonial-role">UI/UX Designer, Remote</div></div></div>
+        <div class="career-testimonial-text">Rekomendasi lowongannya lebih sesuai dengan portofolioku. Aku tidak buang waktu melamar posisi yang kurang cocok dan akhirnya dapat offer remote.</div>
+        <div class="career-testimonial-badge">Mendapat offer</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="career-feedback">
+    <div class="career-feedback-copy">
+      <h3>Bagikan testimoni, kritik, atau saran</h3>
+      <p>Ceritakan pengalamanmu memakai konsultasi karir Workaholic. Masukanmu membantu kami memperbaiki review CV, persiapan interview, dan rekomendasi lowongan agar makin relevan.</p>
+    </div>
+    <div class="career-feedback-form">
+      <div class="career-feedback-row">
+        <input class="career-feedback-input" id="fb-name" type="text" placeholder="Nama lengkap">
+        <input class="career-feedback-input" id="fb-role" type="text" placeholder="Posisi / tujuan karir">
+      </div>
+      <div class="career-feedback-row">
+        <select class="career-feedback-select" id="fb-type"><option value="Testimoni">Testimoni</option><option value="Kritik">Kritik</option><option value="Saran">Saran</option></select>
+        <select class="career-feedback-select" id="fb-rating"><option value="5">Sangat puas</option><option value="4">Puas</option><option value="3">Cukup</option><option value="2">Kurang puas</option><option value="1">Tidak puas</option></select>
+      </div>
+      <textarea class="career-feedback-textarea" id="fb-message" placeholder="Tulis pengalaman, kritik, atau saran kamu..."></textarea>
+      <button class="career-feedback-submit" onclick="submitCareerFeedback()">Kirim Testimoni</button>
+    </div>
+  </div>
+
+  <div class="career-help-flow">
+    <div class="career-help-flow-title">Alur bantuan karir</div>
+    <div class="career-help-steps">
+      <div class="career-help-step"><strong>01</strong><span>Lengkapi profil dan dokumen lamaran.</span></div>
+      <div class="career-help-step"><strong>02</strong><span>Tim meninjau CV, pengalaman, dan target posisi.</span></div>
+      <div class="career-help-step"><strong>03</strong><span>Kamu mendapat arahan interview dan perbaikan dokumen.</span></div>
+      <div class="career-help-step"><strong>04</strong><span>Kami bantu arahkan ke lowongan yang paling cocok.</span></div>
+    </div>
+  </div>
+</div>
+</div>
 <!-- MARQUEE -->
 <div class="marquee-section" id="global-marquee">
   <div class="marquee-track">
@@ -3110,7 +3405,7 @@ function doLogout() {
       <p>Tim konsultan karir kami siap membantumu — mulai dari review CV, persiapan interview, hingga mencarikan lowongan yang paling sesuai dengan profilmu.</p>
     </div>
     <div class="footer-cta-right">
-      <button class="btn-cta-white" onclick="showToast('Tim kami akan menghubungimu segera! 📞')">Hubungi Kami</button>
+      <button class="btn-cta-white" onclick="showPage('career-help')">Hubungi Kami</button>
       <button class="btn-cta-outline" onclick="showPage('signup')">Daftar Gratis</button>
     </div>
   </div>
@@ -3159,7 +3454,7 @@ function doLogout() {
       <div style="height:20px"></div>
       <div class="footer-col-title">Workaholic</div>
       <ul class="footer-links">
-        <li><a onclick="showToast('Halaman segera hadir!')">Tentang Kami</a></li>
+        <li><a onclick="showPage('about')">Tentang Kami</a></li>
       </ul>
     </div>
 
@@ -3468,6 +3763,32 @@ function saveProfile() {
   xhr.send(fd);
 }
 
+
+function submitCareerFeedback() {
+  var name = document.getElementById('fb-name').value.trim();
+  var role = document.getElementById('fb-role').value.trim();
+  var type = document.getElementById('fb-type').value;
+  var rating = document.getElementById('fb-rating').value;
+  var message = document.getElementById('fb-message').value.trim();
+  if (!name || !message) { showToast('Nama dan isi testimoni wajib diisi!'); return; }
+  var fd = new FormData();
+  fd.append('nama', name); fd.append('role', role); fd.append('tipe', type); fd.append('rating', rating); fd.append('pesan', message);
+  fetch('submit_testimonial.php', { method: 'POST', body: fd })
+    .then(function(res){ return res.json(); })
+    .then(function(data){
+      if (data.status === 'ok') {
+        showToast(data.pesan);
+        var list = document.getElementById('career-testimonial-list');
+        if (list && type === 'Testimoni') {
+          var initials = name.split(' ').slice(0,2).map(function(w){return w.charAt(0);}).join('').toUpperCase() || 'U';
+          list.insertAdjacentHTML('afterbegin', '<div class="career-testimonial-card"><div class="career-testimonial-top"><div class="career-testimonial-avatar">' + escapeHtml(initials) + '</div><div><div class="career-testimonial-name">' + escapeHtml(name) + '</div><div class="career-testimonial-role">' + escapeHtml(role || 'Pengguna Workaholic') + '</div></div></div><div class="career-testimonial-text">' + escapeHtml(message) + '</div><div class="career-testimonial-badge">Testimoni baru</div></div>');
+        }
+        document.getElementById('fb-name').value = ''; document.getElementById('fb-role').value = ''; document.getElementById('fb-message').value = '';
+        document.getElementById('fb-rating').value = '5'; document.getElementById('fb-type').value = 'Testimoni';
+      } else { showToast(data.pesan || 'Gagal mengirim testimoni!'); }
+    })
+    .catch(function(){ showToast('Gagal terhubung ke server!'); });
+}
 function uploadProfilePhoto() {
   var input = document.getElementById('profile-photo-input');
   if (!input || !input.files || !input.files[0]) return;

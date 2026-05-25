@@ -49,6 +49,13 @@ function ensure_profile_columns() {
 }
 
 
+
+function ensure_lamaran_columns() {
+    db_add_column_if_missing('lamaran', 'cv_file', "VARCHAR(255) DEFAULT ''");
+    db_add_column_if_missing('lamaran', 'cv_original_name', "VARCHAR(255) DEFAULT ''");
+    db_add_column_if_missing('lamaran', 'cover_letter_file', "VARCHAR(255) DEFAULT ''");
+    db_add_column_if_missing('lamaran', 'cover_letter_original_name', "VARCHAR(255) DEFAULT ''");
+}
 function ensure_company_columns() {
     db_add_column_if_missing('perusahaan', 'cari_kandidat', 'TEXT NULL');
     db_add_column_if_missing('perusahaan', 'tagline', "VARCHAR(200) DEFAULT ''");
