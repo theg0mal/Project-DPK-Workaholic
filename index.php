@@ -956,6 +956,35 @@
     background: var(--paper);
   }
 
+  .auth-input.input-error,
+  .apply-input.input-error,
+  .apply-select.input-error,
+  .apply-textarea.input-error {
+    border-color: #dc2626 !important;
+    box-shadow: 0 0 0 3px rgba(220,38,38,0.1) !important;
+    background: #fff8f8 !important;
+  }
+  .field-error-msg {
+    color: #dc2626;
+    font-size: 12px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    animation: fadeUp 0.2s ease both;
+  }
+  .field-error-msg::before {
+    content: '!';
+    background: #dc2626;
+    color: white;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    font-size: 10px; font-weight: 700;
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
   .auth-row {
     display: flex;
     align-items: center;
@@ -1271,6 +1300,7 @@
     transition: border-color 0.2s, background 0.2s;
     background: var(--cream);
   }
+  .upload-file-input { display: none !important; }
 
   .upload-area:hover { border-color: var(--accent); background: var(--accent-light); }
 
@@ -2586,34 +2616,63 @@ function openApplyPage(id) {
 var currentApplyStep = 1;
 
 function applyNextStep(step, reset) {
-  if (step > 2 && currentApplyStep === 2) {
-    var cvInputCheck = document.getElementById('ap-cv');
-    var cvAreaCheck = document.getElementById('cv-upload-area');
-    if (!cvInputCheck || !cvInputCheck.files || !cvInputCheck.files[0]) {
-      if (cvAreaCheck) cvAreaCheck.classList.add('error');
-      showToast('Upload CV / resume terlebih dulu!');
-      return;
+  // Per-step validation before advancing
+  if (!reset && step > currentApplyStep) {
+    if (currentApplyStep === 1) {
+      var ok1 = true;
+      ['ap-name','ap-email','ap-phone','ap-city'].forEach(clearFieldError);
+      var n  = (document.getElementById('ap-name')  ||{value:''}).value.trim();
+      var e  = (document.getElementById('ap-email') ||{value:''}).value.trim();
+      var ph = String((document.getElementById('ap-phone') ||{value:''}).value).trim();
+      var ct = (document.getElementById('ap-city')  ||{value:''}).value.trim();
+      if (!n)  { setFieldError('ap-name',  'Nama lengkap wajib diisi'); ok1=false; }
+      if (!e)  { setFieldError('ap-email', 'Email wajib diisi'); ok1=false; }
+      else if (!isValidEmail(e)) { setFieldError('ap-email','Format email tidak valid (contoh: nama@email.com)'); ok1=false; }
+      if (!ph) { setFieldError('ap-phone', 'Nomor HP wajib diisi'); ok1=false; }
+      if (!ct) { setFieldError('ap-city',  'Kota domisili wajib diisi'); ok1=false; }
+      if (!ok1) { window.scrollTo(0,0); return; }
+    }
+    if (currentApplyStep === 2) {
+      var cvChk = document.getElementById('ap-cv');
+      var cvAr  = document.getElementById('cv-upload-area');
+      if (!cvChk || !cvChk.files || !cvChk.files[0]) {
+        if (cvAr) cvAr.classList.add('error');
+        showToast('Upload CV / resume terlebih dulu!');
+        return;
+      }
+    }
+    if (currentApplyStep === 3) {
+      var ok3 = true;
+      ['ap-q1','ap-q2','ap-skills'].forEach(clearFieldError);
+      var q1  = (document.getElementById('ap-q1')    ||{value:''}).value.trim();
+      var q2  = (document.getElementById('ap-q2')    ||{value:''}).value.trim();
+      var sk  = (document.getElementById('ap-skills')||{value:''}).value.trim();
+      if (!q1) { setFieldError('ap-q1',    'Motivasi melamar wajib diisi'); ok3=false; }
+      if (!q2) { setFieldError('ap-q2',    'Pencapaian terbesar wajib diisi'); ok3=false; }
+      if (!sk) { setFieldError('ap-skills','Skill wajib diisi'); ok3=false; }
+      if (!ok3) { window.scrollTo(0,0); return; }
     }
   }
-  for(var i=1;i<=4;i++){
-    var el = document.getElementById('apply-step-'+i);
-    if(el) el.style.display = (i===step)?'block':'none';
+  // Show/hide step divs
+  for (var i = 1; i <= 4; i++) {
+    var el = document.getElementById('apply-step-' + i);
+    if (el) el.style.display = (i === step) ? 'block' : 'none';
   }
-  // Update progress
-  for(var s=1;s<=4;s++){
-    var prog = document.getElementById('prog'+s);
-    if(!prog) continue;
+  // Update progress indicators
+  for (var s = 1; s <= 4; s++) {
+    var prog = document.getElementById('prog' + s);
+    if (!prog) continue;
     prog.className = 'prog-step';
-    if(s < step) prog.classList.add('done');
-    else if(s === step) prog.classList.add('active');
+    if (s < step) prog.classList.add('done');
+    else if (s === step) prog.classList.add('active');
     var dot = prog.querySelector('.prog-dot');
-    if(dot) dot.innerHTML = s < step ? '&#10003;' : s;
-    var line = document.getElementById('pline'+s);
-    if(line) line.className = 'prog-line' + (s < step ? ' done' : '');
+    if (dot) dot.innerHTML = s < step ? '&#10003;' : s;
+    var line = document.getElementById('pline' + s);
+    if (line) line.className = 'prog-line' + (s < step ? ' done' : '');
   }
   currentApplyStep = step;
-  if(step===4) buildReview();
-  window.scrollTo(0,0);
+  if (step === 4) buildReview();
+  window.scrollTo(0, 0);
 }
 
 function buildReview(){
@@ -2690,38 +2749,40 @@ function handleLetterFile(input) {
   if (label) label.textContent = 'Surat lamaran dipilih: ' + file.name;
 }
 function submitApplication() {
-  var formData = new FormData();
-  formData.append('lowongan_id', currentJobId || 0);
-  formData.append('nama',        document.getElementById('ap-name').value);
-  formData.append('email',       document.getElementById('ap-email').value);
-  formData.append('no_hp',       document.getElementById('ap-phone').value);
-  formData.append('kota',        document.getElementById('ap-city').value);
-  formData.append('pendidikan',  document.getElementById('ap-edu').value);
-  formData.append('pengalaman',  document.getElementById('ap-exp').value);
-  formData.append('gaji',        document.getElementById('ap-salary').value);
-  formData.append('cover_letter',document.getElementById('ap-coverletter').value);
-
+  var btn = document.querySelector('#apply-step-4 .btn-submit-apply');
   var cvInput = document.getElementById('ap-cv');
-  if (!cvInput || !cvInput.files || !cvInput.files[0]) { showToast('Upload CV / resume terlebih dulu!'); applyNextStep(2); return; }
-  formData.append('cv_resume', cvInput.files[0]);
-
+  if (!cvInput || !cvInput.files || !cvInput.files[0]) {
+    showToast('CV tidak ditemukan, silakan kembali ke step Dokumen dan upload ulang!');
+    applyNextStep(2, true);
+    return;
+  }
+  var fd = new FormData();
+  fd.append('lowongan_id',  currentJobId || 0);
+  fd.append('nama',         (document.getElementById('ap-name')        ||{value:''}).value);
+  fd.append('email',        (document.getElementById('ap-email')       ||{value:''}).value);
+  fd.append('no_hp',        (document.getElementById('ap-phone')       ||{value:''}).value);
+  fd.append('kota',         (document.getElementById('ap-city')        ||{value:''}).value);
+  fd.append('pendidikan',   (document.getElementById('ap-edu')         ||{value:''}).value);
+  fd.append('pengalaman',   (document.getElementById('ap-exp')         ||{value:''}).value);
+  fd.append('gaji',         (document.getElementById('ap-salary')      ||{value:''}).value);
+  fd.append('cover_letter', (document.getElementById('ap-coverletter') ||{value:''}).value);
+  fd.append('cv_resume', cvInput.files[0]);
   var letterInput = document.getElementById('ap-letter-file');
-  if (letterInput && letterInput.files && letterInput.files[0]) formData.append('cover_letter_file', letterInput.files[0]);
-
-  fetch('lamar.php', { method: 'POST', body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if (data.status === 'ok') {
-        showPage('home');
-        showToast('🎉 Lamaranmu berhasil dikirim!');
-      } else if (data.status === 'login') {
-        showPage('login');
-        showToast('Kamu harus login dulu untuk melamar!');
-      } else {
-        showToast(data.pesan);
-      }
+  if (letterInput && letterInput.files && letterInput.files[0]) fd.append('cover_letter_file', letterInput.files[0]);
+  if (btn) { btn.disabled=true; btn.textContent='Mengirim...'; }
+  fetch('lamar.php', {method:'POST', body:fd})
+    .then(function(res){return res.json();})
+    .then(function(data){
+      if (btn) { btn.disabled=false; btn.textContent='Kirim Lamaran 🚀'; }
+      if (data.status==='ok') { showPage('home'); showToast('🎉 Lamaranmu berhasil dikirim!'); }
+      else if (data.status==='login') { showPage('login'); showToast('Kamu harus login dulu untuk melamar!'); }
+      else { showToast(data.pesan||'Terjadi kesalahan, coba lagi!'); }
     })
-    .catch(() => showToast('Gagal terhubung ke server!'));
+    .catch(function(err){
+      if (btn) { btn.disabled=false; btn.textContent='Kirim Lamaran 🚀'; }
+      console.error('submitApplication error:', err);
+      showToast('Gagal terhubung ke server!');
+    });
 }
 
 function saveJob() {
@@ -2757,7 +2818,56 @@ function loadJobs() {
 function loadCompanies() { fetch('list_companies.php').then(function(res){return res.json();}).then(function(res){ if(res.status==='ok'){ companies=res.data; renderCompanies(); } }); }
 function renderCompanies() { var grid=document.getElementById('companies-grid'); if(!grid)return; if(!companies.length){grid.innerHTML='<div class="profile-empty">Belum ada perusahaan terdaftar.</div>';return;} grid.innerHTML=companies.map(function(c,i){return '<div class="company-card" onclick="openCompanyProfile('+c.id+')" style="animation-delay:'+(i*0.04)+'s"><div class="cc-top"><div class="cc-logo" style="background:'+(c.logoUrl ? 'var(--paper)' : c.logoBg)+';color:'+c.logoCol+'">'+logoContent(c)+'</div><div><div class="cc-name">'+escapeHtml(c.name)+'</div><div class="cc-industry">'+escapeHtml(c.industry)+' · '+escapeHtml(c.city)+'</div></div></div><div class="cc-desc">'+escapeHtml(c.desc)+'</div><div class="cc-meta"><span class="cc-pill">'+c.jobs+' lowongan aktif</span><span class="cc-pill">'+escapeHtml(c.website)+'</span></div></div>';}).join(''); }
 function openCompanyProfile(id) { var c=companies.find(function(x){return x.id===id;}); if(!c)return; var related=jobs.filter(function(j){return j.company_id===id;}); document.getElementById('cp-wrap').innerHTML='<div class="cp-cover"></div><div class="cp-header"><div class="cp-logo-wrap"><div class="cp-logo" style="background:'+(c.logoUrl ? 'var(--paper)' : c.logoBg)+';color:'+c.logoCol+'">'+logoContent(c)+'</div><div><div class="cp-name">'+escapeHtml(c.name)+'</div><div class="cp-tagline">'+escapeHtml(c.tagline||c.industry+' · '+c.city)+'</div></div></div><div class="cp-stats"><div class="cp-stat"><span class="cp-stat-val">'+c.jobs+'</span><span class="cp-stat-lbl">Lowongan aktif</span></div><div class="cp-stat"><span class="cp-stat-val">'+escapeHtml(c.city)+'</span><span class="cp-stat-lbl">Lokasi</span></div><div class="cp-stat"><span class="cp-stat-val">'+escapeHtml(c.industry)+'</span><span class="cp-stat-lbl">Industri</span></div></div></div><div class="cp-body"><div><div class="cp-section"><div class="cp-section-title">Tentang Perusahaan</div><p>'+escapeHtml(c.desc)+'</p></div><div class="cp-section"><div class="cp-section-title">Kandidat yang Dicari</div><p>'+escapeHtml(c.looking)+'</p></div></div><div><div class="cp-section"><div class="cp-section-title">Informasi</div><div class="cp-info-list"><div class="cp-info-item"><span class="cp-info-label">Email</span><span class="cp-info-val">'+escapeHtml(c.email)+'</span></div><div class="cp-info-item"><span class="cp-info-label">Website</span><span class="cp-info-val">'+escapeHtml(c.website)+'</span></div></div></div><div class="cp-section"><div class="cp-section-title">Lowongan Aktif</div>'+(related.length?related.map(function(j){return '<div class="cp-job-item" onclick="openJob('+j.id+')"><div class="cp-job-title">'+escapeHtml(j.title)+'</div><div class="cp-job-type">'+escapeHtml(j.type)+'</div></div>';}).join(''):'<div class="profile-empty">Belum ada lowongan aktif.</div>')+'</div></div></div>'; showPage('company-profile'); }
-function doCompanyLogin(){var fd=new FormData();fd.append('email',document.getElementById('cl-email').value.trim());fd.append('password',document.getElementById('cl-pass').value);fetch('company_login.php',{method:'POST',body:fd}).then(function(r){return r.json();}).then(function(d){if(d.status==='ok')companyLoginSuccess(d.nama);else showToast(d.pesan);}).catch(function(){showToast('Gagal terhubung ke server!');});}
+// ===== VALIDATION HELPERS =====
+function setFieldError(id, msg) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.add('input-error');
+  var existing = el.parentNode.querySelector('.field-error-msg');
+  if (existing) existing.remove();
+  if (msg) {
+    var err = document.createElement('div');
+    err.className = 'field-error-msg';
+    err.textContent = msg;
+    el.parentNode.appendChild(err);
+  }
+  el.addEventListener('input', function clearMe() {
+    el.classList.remove('input-error');
+    var m = el.parentNode.querySelector('.field-error-msg');
+    if (m) m.remove();
+    el.removeEventListener('input', clearMe);
+  });
+}
+function clearFieldError(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove('input-error');
+  var m = el.parentNode.querySelector('.field-error-msg');
+  if (m) m.remove();
+}
+function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }
+function isValidPhone(v) { return /^[0-9+\-\s]{7,15}$/.test(v.trim()); }
+// ===== END VALIDATION HELPERS =====
+
+function doCompanyLogin() {
+  var email = document.getElementById('cl-email').value.trim();
+  var pass  = document.getElementById('cl-pass').value;
+  var ok = true;
+  clearFieldError('cl-email'); clearFieldError('cl-pass');
+  if (!email) { setFieldError('cl-email','Email perusahaan wajib diisi'); ok=false; }
+  else if (!isValidEmail(email)) { setFieldError('cl-email','Format email tidak valid (contoh: hr@perusahaan.com)'); ok=false; }
+  if (!pass) { setFieldError('cl-pass','Password wajib diisi'); ok=false; }
+  if (!ok) return;
+  var fd = new FormData();
+  fd.append('email', email); fd.append('password', pass);
+  fetch('company_login.php', {method:'POST',body:fd})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if (d.status==='ok') companyLoginSuccess(d.nama);
+      else setFieldError('cl-email', d.pesan||'Email atau password salah');
+    })
+    .catch(function(){showToast('Gagal terhubung ke server!');});
+}
 function doCompanySignup(){var pass=document.getElementById('cs-pass').value;var pass2=document.getElementById('cs-pass2').value;if(pass!==pass2){showToast('Password tidak cocok!');return;}var fd=new FormData();fd.append('nama_perusahaan',document.getElementById('cs-name').value.trim());fd.append('industri',document.getElementById('cs-industry').value.trim());fd.append('email',document.getElementById('cs-email').value.trim());fd.append('kota',document.getElementById('cs-city').value.trim());fd.append('website',document.getElementById('cs-website').value.trim());fd.append('deskripsi',document.getElementById('cs-desc').value.trim());fd.append('cari_kandidat',document.getElementById('cs-looking').value.trim());fd.append('password',pass);fetch('company_register.php',{method:'POST',body:fd}).then(function(r){return r.json();}).then(function(d){if(d.status==='ok')companyLoginSuccess(d.nama);else showToast(d.pesan);}).catch(function(){showToast('Gagal terhubung ke server!');});}
 function companyLoginSuccess(name){loggedInUser=name;loggedInType='company';document.getElementById('nav-auth-btns').style.display='none';var badge=document.getElementById('nav-user-badge');badge.style.display='list-item';document.getElementById('nav-username').textContent=name;document.getElementById('nav-avatar').textContent=name.split(' ').slice(0,2).map(function(w){return w[0];}).join('').toUpperCase();showPage('company-dashboard');loadCompanyDashboard();showToast('Halo, admin '+name+'!');}
 function loadCompanyDashboard(){fetch('company_session.php').then(function(r){return r.json();}).then(function(res){if(res.status!=='ok'){showToast(res.pesan);showPage('company-login');return;}var d=res.data;document.getElementById('cd-title').textContent=d.nama_perusahaan||'Company Dashboard';document.getElementById('cd-sub').textContent=(d.industri||'Perusahaan')+' · '+(d.kota||'Lokasi belum diisi');document.getElementById('cd-name').value=d.nama_perusahaan||'';document.getElementById('cd-industry').value=d.industri||'';document.getElementById('cd-city').value=d.kota||'';document.getElementById('cd-website').value=d.website||'';document.getElementById('cd-tagline').value=d.tagline||'';document.getElementById('cd-desc').value=d.deskripsi||'';document.getElementById('cd-looking').value=d.cari_kandidat||'';setAvatarElement(document.getElementById('cd-logo-preview'), d.nama_perusahaan, d.logo || '');setAvatarElement(document.getElementById('nav-avatar'), d.nama_perusahaan, d.logo || '');renderCompanyJobs(res.jobs||[]);}).catch(function(){showToast('Gagal memuat dashboard perusahaan!');});}
@@ -2791,22 +2901,24 @@ function showPage(name) {
 function doLogin() {
   var email = document.getElementById('login-email').value.trim();
   var pass  = document.getElementById('login-pass').value;
-  if (!email || !pass) { showToast('Email dan password wajib diisi!'); return; }
-
-  var formData = new FormData();
-  formData.append('email', email);
-  formData.append('password', pass);
-
-  fetch('login.php', { method: 'POST', body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if (data.status === 'ok') {
-        loginSuccess(data.nama);
-      } else {
-        showToast(data.pesan);
-      }
+  var ok = true;
+  clearFieldError('login-email'); clearFieldError('login-pass');
+  if (!email) { setFieldError('login-email','Email wajib diisi'); ok=false; }
+  else if (!isValidEmail(email)) { setFieldError('login-email','Format email tidak valid (contoh: nama@email.com)'); ok=false; }
+  if (!pass) { setFieldError('login-pass','Password wajib diisi'); ok=false; }
+  if (!ok) return;
+  var btn = document.querySelector('#page-login .btn-auth');
+  if (btn) { btn.disabled=true; btn.textContent='Masuk...'; }
+  var fd = new FormData();
+  fd.append('email', email); fd.append('password', pass);
+  fetch('login.php', {method:'POST',body:fd})
+    .then(function(res){return res.json();})
+    .then(function(data){
+      if (btn) { btn.disabled=false; btn.textContent='Masuk'; }
+      if (data.status==='ok') loginSuccess(data.nama);
+      else setFieldError('login-email', data.pesan||'Email atau password salah');
     })
-    .catch(() => showToast('Gagal terhubung ke server!'));
+    .catch(function(){ if(btn){btn.disabled=false;btn.textContent='Masuk';} showToast('Gagal terhubung ke server!'); });
 }
 
 function doSignup() {
@@ -2815,28 +2927,29 @@ function doSignup() {
   var email = document.getElementById('signup-email').value.trim();
   var pass  = document.getElementById('signup-pass').value;
   var pass2 = document.getElementById('signup-pass2').value;
-
-  if (!fname || !email || !pass || !pass2) { showToast('Semua field wajib diisi!'); return; }
-  if (!email.includes('@')) { showToast('Format email tidak valid!'); return; }
-  if (pass.length < 8) { showToast('Password minimal 8 karakter!'); return; }
-  if (pass !== pass2) { showToast('Password tidak cocok!'); return; }
-
-  var formData = new FormData();
-  formData.append('nama', fname + (lname ? ' ' + lname : ''));
-  formData.append('email', email);
-  formData.append('password', pass);
-
-  fetch('register.php', { method: 'POST', body: formData })
-    .then(res => res.json())
-    .then(data => {
-      if (data.status === 'ok') {
-        showToast('Registrasi berhasil! Silakan login.');
-        showPage('login');
-      } else {
-        showToast(data.pesan);
-      }
+  var ok = true;
+  ['signup-fname','signup-email','signup-pass','signup-pass2'].forEach(clearFieldError);
+  if (!fname) { setFieldError('signup-fname','Nama depan wajib diisi'); ok=false; }
+  if (!email) { setFieldError('signup-email','Email wajib diisi'); ok=false; }
+  else if (!isValidEmail(email)) { setFieldError('signup-email','Format email tidak valid (contoh: nama@email.com)'); ok=false; }
+  if (!pass) { setFieldError('signup-pass','Password wajib diisi'); ok=false; }
+  else if (pass.length < 8) { setFieldError('signup-pass','Password minimal 8 karakter'); ok=false; }
+  if (!pass2) { setFieldError('signup-pass2','Konfirmasi password wajib diisi'); ok=false; }
+  else if (pass && pass !== pass2) { setFieldError('signup-pass2','Password tidak cocok'); ok=false; }
+  if (!ok) return;
+  var btn = document.querySelector('#page-signup .btn-auth');
+  if (btn) { btn.disabled=true; btn.textContent='Mendaftar...'; }
+  var fd = new FormData();
+  fd.append('nama', fname + (lname ? ' ' + lname : ''));
+  fd.append('email', email); fd.append('password', pass);
+  fetch('register.php', {method:'POST',body:fd})
+    .then(function(res){return res.json();})
+    .then(function(data){
+      if (btn) { btn.disabled=false; btn.textContent='Daftar Sekarang'; }
+      if (data.status==='ok') { showToast('Registrasi berhasil! Silakan login.'); showPage('login'); }
+      else setFieldError('signup-email', data.pesan||'Pendaftaran gagal');
     })
-    .catch(() => showToast('Gagal terhubung ke server!'));
+    .catch(function(){ if(btn){btn.disabled=false;btn.textContent='Daftar Sekarang';} showToast('Gagal terhubung ke server!'); });
 }
 
 function doGoogleAuth() {
@@ -3125,7 +3238,7 @@ function doLogout() {
     <div class="apply-section">
       <div class="apply-section-title">Upload CV / Resume *</div>
       <div class="upload-area" id="cv-upload-area" onclick="document.getElementById('ap-cv').click()">
-        <input class="upload-file-input" type="file" id="ap-cv" accept="application/pdf,image/jpeg,image/png,image/webp" onchange="handleCvFile(this)">
+        <input class="upload-file-input" type="file" id="ap-cv" accept="application/pdf,image/jpeg,image/png,image/webp" onchange="handleCvFile(this)" onclick="event.stopPropagation()">
         <div class="upload-icon">📄</div>
         <div class="upload-label" id="cv-label">Klik untuk upload CV / Resume</div>
         <div class="upload-hint">PDF, JPG, PNG, atau WEBP — maks. 5 MB</div>
@@ -3134,7 +3247,7 @@ function doLogout() {
     <div class="apply-section">
       <div class="apply-section-title">Surat Lamaran (opsional)</div>
       <div class="upload-area" id="letter-upload-area" onclick="document.getElementById('ap-letter-file').click()">
-        <input class="upload-file-input" type="file" id="ap-letter-file" accept="application/pdf,image/jpeg,image/png,image/webp" onchange="handleLetterFile(this)">
+        <input class="upload-file-input" type="file" id="ap-letter-file" accept="application/pdf,image/jpeg,image/png,image/webp" onchange="handleLetterFile(this)" onclick="event.stopPropagation()">
         <div class="upload-icon">✉</div>
         <div class="upload-label" id="letter-label">Klik untuk upload surat lamaran</div>
         <div class="upload-hint">PDF, JPG, PNG, atau WEBP — maks. 5 MB</div>
