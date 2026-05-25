@@ -82,6 +82,10 @@ try {
     }
 
     $cek = mysqli_prepare($conn, "SELECT id FROM lowongan WHERE id=? AND status='aktif' LIMIT 1");
+    if (!$cek) {
+        echo json_encode(["status" => "error", "pesan" => "Gagal mengecek lowongan: " . mysqli_error($conn)]);
+        exit;
+    }
     mysqli_stmt_bind_param($cek, 'i', $lowongan_id);
     mysqli_stmt_execute($cek);
     $res = mysqli_stmt_get_result($cek);
@@ -91,8 +95,9 @@ try {
     }
 
     $uploadDir = __DIR__ . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'resumes';
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0775, true);
+    if (!is_dir($uploadDir) && !mkdir($uploadDir, 0775, true)) {
+        echo json_encode(["status" => "error", "pesan" => "Folder upload CV tidak bisa dibuat!"]);
+        exit;
     }
 
     $originalName = basename($cv['name']);
@@ -108,8 +113,9 @@ try {
     $letterOriginalName = '';
     if ($letter !== null) {
         $letterDir = __DIR__ . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'cover_letters';
-        if (!is_dir($letterDir)) {
-            mkdir($letterDir, 0775, true);
+        if (!is_dir($letterDir) && !mkdir($letterDir, 0775, true)) {
+            echo json_encode(["status" => "error", "pesan" => "Folder upload surat lamaran tidak bisa dibuat!"]);
+            exit;
         }
         $letterOriginalName = basename($letter['name']);
         $letterFilename = 'cover_letter_user_' . $user_id . '_job_' . $lowongan_id . '_' . time() . '.' . $allowed[$letterMime];
@@ -122,6 +128,10 @@ try {
     }
 
     $stmt = mysqli_prepare($conn, "INSERT INTO lamaran (user_id, lowongan_id, nama_lengkap, email, no_hp, kota, pendidikan, pengalaman, gaji_ekspektasi, cover_letter, cv_file, cv_original_name, cover_letter_file, cover_letter_original_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    if (!$stmt) {
+        echo json_encode(["status" => "error", "pesan" => "Gagal menyiapkan data lamaran: " . mysqli_error($conn)]);
+        exit;
+    }
     mysqli_stmt_bind_param($stmt, 'iissssssssssss', $user_id, $lowongan_id, $nama, $email, $no_hp, $kota, $pendidikan, $pengalaman, $gaji, $cover_letter, $cvPath, $originalName, $letterPath, $letterOriginalName);
 
     if (mysqli_stmt_execute($stmt)) {
@@ -129,7 +139,7 @@ try {
     } else {
         echo json_encode(["status" => "error", "pesan" => "Gagal: " . mysqli_stmt_error($stmt)]);
     }
-} catch (Exception $e) {
+} catch (Throwable $e) {
     echo json_encode(["status" => "error", "pesan" => "Gagal mengirim lamaran: " . $e->getMessage()]);
 }
 ?>
