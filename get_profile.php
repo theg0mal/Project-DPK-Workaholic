@@ -17,6 +17,27 @@ try {
 
     if ($user) {
         unset($user['password']);
+
+        $sessionNama = trim($_SESSION['user_nama'] ?? '');
+        $sessionFoto = trim($_SESSION['user_foto'] ?? '');
+        $needsSync = false;
+
+        if (trim($user['nama'] ?? '') === '' && $sessionNama !== '') {
+            $user['nama'] = $sessionNama;
+            $needsSync = true;
+        }
+        if (trim($user['foto_profile'] ?? '') === '' && $sessionFoto !== '') {
+            $user['foto_profile'] = $sessionFoto;
+            $needsSync = true;
+        }
+        if ($needsSync) {
+            $namaSync = $user['nama'] ?? '';
+            $fotoSync = $user['foto_profile'] ?? '';
+            $sync = mysqli_prepare($conn, "UPDATE users SET nama=IF(nama IS NULL OR nama='', ?, nama), foto_profile=IF(foto_profile IS NULL OR foto_profile='', ?, foto_profile) WHERE id=?");
+            mysqli_stmt_bind_param($sync, 'ssi', $namaSync, $fotoSync, $id);
+            mysqli_stmt_execute($sync);
+        }
+
         if (empty($user['lokasi']) && !empty($user['kota'])) {
             $user['lokasi'] = $user['kota'];
         }

@@ -1,14 +1,29 @@
 <?php
+session_start();
 include 'koneksi.php';
 header('Content-Type: application/json');
 
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(["status" => "login", "pesan" => "Belum login!"]);
+    exit;
+}
+
 try {
-    ensure_sample_jobs();
+    ensure_saved_jobs_table();
     ensure_company_columns();
     db_add_column_if_missing('lowongan', 'deleted_at', 'DATETIME NULL');
 
-    $sql = "SELECT l.*, p.nama_perusahaan, p.industri, p.logo AS perusahaan_logo, p.kota AS perusahaan_kota FROM lowongan l JOIN perusahaan p ON p.id = l.perusahaan_id WHERE l.status='aktif' AND l.deleted_at IS NULL ORDER BY l.created_at DESC, l.id DESC";
-    $res = mysqli_query($conn, $sql);
+    $userId = (int)$_SESSION['user_id'];
+    $stmt = mysqli_prepare($conn, "SELECT sj.created_at AS saved_at, l.*, p.nama_perusahaan, p.industri, p.logo AS perusahaan_logo
+        FROM saved_jobs sj
+        JOIN lowongan l ON l.id = sj.lowongan_id
+        JOIN perusahaan p ON p.id = l.perusahaan_id
+        WHERE sj.user_id=? AND l.deleted_at IS NULL
+        ORDER BY sj.created_at DESC");
+    mysqli_stmt_bind_param($stmt, 'i', $userId);
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
+
     $jobs = [];
     while ($row = mysqli_fetch_assoc($res)) {
         $gajiMin = (int)$row['gaji_min'];
@@ -20,7 +35,6 @@ try {
         } else {
             $salary = 'Negosiasi';
         }
-        $category = strtolower($row['industri'] ?: 'lainnya');
         $jobs[] = [
             'id' => (int)$row['id'],
             'featured' => false,
@@ -34,17 +48,20 @@ try {
             'location' => $row['lokasi'],
             'type' => $row['tipe'],
             'mode' => $row['mode_kerja'],
-            'category' => $category,
+            'category' => strtolower($row['industri'] ?: 'lainnya'),
             'exp' => $row['pengalaman'] ?: 'Terbuka',
             'salary' => $salary,
             'salaryRaw' => $gajiMax > 0 ? round($gajiMax / 1000000) : 0,
             'posted' => date('d M Y', strtotime($row['created_at'])),
+            'saved_at' => date('d M Y', strtotime($row['saved_at'])),
+            'status' => $row['status'],
             'desc' => $row['deskripsi'] ?: '',
             'qual' => array_values(array_filter(array_map('trim', preg_split('/\r\n|\r|\n|,/', $row['kualifikasi'] ?: '')))),
         ];
     }
+
     echo json_encode(["status" => "ok", "data" => $jobs]);
 } catch (Exception $e) {
-    echo json_encode(["status" => "error", "pesan" => $e->getMessage()]);
+    echo json_encode(["status" => "error", "pesan" => "Gagal memuat lowongan tersimpan: " . $e->getMessage()]);
 }
 ?>

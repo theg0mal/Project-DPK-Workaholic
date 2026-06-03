@@ -50,40 +50,25 @@ function ensure_profile_columns() {
 
 
 
-function ensure_lamaran_columns() {
-    db_query_or_fail("CREATE TABLE IF NOT EXISTS lamaran (
+
+function ensure_saved_jobs_table() {
+    db_query_or_fail("CREATE TABLE IF NOT EXISTS saved_jobs (
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
         lowongan_id INT NOT NULL,
-        nama_lengkap VARCHAR(150) DEFAULT '',
-        email VARCHAR(150) DEFAULT '',
-        no_hp VARCHAR(30) DEFAULT '',
-        kota VARCHAR(100) DEFAULT '',
-        pendidikan VARCHAR(100) DEFAULT '',
-        pengalaman VARCHAR(100) DEFAULT '',
-        gaji_ekspektasi VARCHAR(100) DEFAULT '',
-        cover_letter TEXT NULL,
-        cv_file VARCHAR(255) DEFAULT '',
-        cv_original_name VARCHAR(255) DEFAULT '',
-        cover_letter_file VARCHAR(255) DEFAULT '',
-        cover_letter_original_name VARCHAR(255) DEFAULT '',
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )");
-    db_add_column_if_missing('lamaran', 'user_id', 'INT NOT NULL DEFAULT 0');
-    db_add_column_if_missing('lamaran', 'lowongan_id', 'INT NOT NULL DEFAULT 0');
-    db_add_column_if_missing('lamaran', 'nama_lengkap', "VARCHAR(150) DEFAULT ''");
-    db_add_column_if_missing('lamaran', 'email', "VARCHAR(150) DEFAULT ''");
-    db_add_column_if_missing('lamaran', 'no_hp', "VARCHAR(30) DEFAULT ''");
-    db_add_column_if_missing('lamaran', 'kota', "VARCHAR(100) DEFAULT ''");
-    db_add_column_if_missing('lamaran', 'pendidikan', "VARCHAR(100) DEFAULT ''");
-    db_add_column_if_missing('lamaran', 'pengalaman', "VARCHAR(100) DEFAULT ''");
-    db_add_column_if_missing('lamaran', 'gaji_ekspektasi', "VARCHAR(100) DEFAULT ''");
-    db_add_column_if_missing('lamaran', 'cover_letter', 'TEXT NULL');
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE KEY uniq_saved_job (user_id, lowongan_id),
+        INDEX idx_saved_user (user_id),
+        INDEX idx_saved_lowongan (lowongan_id),
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (lowongan_id) REFERENCES lowongan(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+}
+function ensure_lamaran_columns() {
     db_add_column_if_missing('lamaran', 'cv_file', "VARCHAR(255) DEFAULT ''");
     db_add_column_if_missing('lamaran', 'cv_original_name', "VARCHAR(255) DEFAULT ''");
     db_add_column_if_missing('lamaran', 'cover_letter_file', "VARCHAR(255) DEFAULT ''");
     db_add_column_if_missing('lamaran', 'cover_letter_original_name', "VARCHAR(255) DEFAULT ''");
-    db_add_column_if_missing('lamaran', 'created_at', 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP');
 }
 function ensure_company_columns() {
     db_add_column_if_missing('perusahaan', 'cari_kandidat', 'TEXT NULL');

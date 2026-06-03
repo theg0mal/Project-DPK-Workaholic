@@ -625,6 +625,8 @@
   }
 
   .modal-company { font-size: 14px; color: var(--ink-soft); margin-bottom: 20px; }
+  .modal-company-link { color: var(--accent); cursor: pointer; font-weight: 500; transition: opacity 0.15s; }
+  .modal-company-link:hover { opacity: 0.75; text-decoration: underline; }
 
   .modal-meta {
     display: flex;
@@ -720,6 +722,8 @@
   }
 
   .toast.show { transform: translateY(0); opacity: 1; }
+  .toast.success { background: #1a7a4a; }
+  .toast.error-toast { background: #dc2626; }
 
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
@@ -1636,19 +1640,53 @@
 
 
   /* ===== COMPANY ADMIN ===== */
-  .company-admin-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 5vw 80px; animation: fadeUp 0.4s ease both; }
+  .company-admin-wrap { max-width: 1300px; margin: 0 auto; padding: 40px 5vw 80px; animation: fadeUp 0.4s ease both; }
   .company-admin-head { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
   .company-admin-title { font-family:'DM Serif Display', serif; font-size:30px; letter-spacing:-0.6px; color:var(--ink); }
   .company-admin-sub { font-size:14px; color:var(--ink-muted); margin-top:4px; }
   .company-admin-grid { display:grid; grid-template-columns: 1fr 360px; gap:20px; align-items:start; }
   .company-admin-card { background:var(--paper); border:1px solid var(--warm-border); border-radius:12px; padding:22px; margin-bottom:16px; }
+  .company-admin-main { display:block; }
+  .company-forms-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start; }
+  @media (max-width: 900px) { .company-forms-row { grid-template-columns:1fr; } }
+  .company-application-actions { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
+  .btn-back-dashboard { border:1px solid var(--warm-border); background:var(--paper); color:var(--ink-soft); border-radius:9px; padding:9px 14px; font-family:'DM Sans', sans-serif; font-size:13px; font-weight:700; cursor:pointer; }
+  .btn-back-dashboard:hover { border-color:var(--accent); color:var(--accent); }
   .company-admin-card-title { font-family:'DM Serif Display', serif; font-size:18px; color:var(--ink); margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--warm-border); }
   .company-job-list { display:flex; flex-direction:column; gap:10px; }
   .company-job-row { border:1px solid var(--warm-border); border-radius:10px; padding:12px 14px; background:var(--cream); }
   .company-job-row-title { font-size:14px; font-weight:500; color:var(--ink); margin-bottom:3px; }
   .company-job-row-meta { font-size:12px; color:var(--ink-muted); }
+  .company-job-row-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .company-job-actions { display:flex; gap:6px; flex-shrink:0; }
+  .job-action-btn { border:1px solid var(--warm-border); background:var(--paper); color:var(--ink-soft); border-radius:7px; padding:5px 8px; font-family:'DM Sans', sans-serif; font-size:11px; font-weight:700; cursor:pointer; }
+  .job-action-btn:hover { border-color:var(--accent); color:var(--accent); }
+  .job-action-btn.danger:hover { border-color:#C2410C; color:#C2410C; }
+  .applicant-row.active { border-color:var(--accent); background:var(--accent-light); box-shadow:0 0 0 3px rgba(45,106,79,0.08); }
   .auth-alt-link { text-align:center; margin-top:14px; font-size:13px; color:var(--ink-muted); }
   .auth-alt-link a { color:var(--accent); cursor:pointer; text-decoration:none; font-weight:500; }
+  .company-admin-card-title-row { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:16px; padding-bottom:10px; border-bottom:1px solid var(--warm-border); }
+  .company-admin-card-title-row .company-admin-card-title { margin-bottom:0; padding-bottom:0; border-bottom:none; }
+  .notif-badge { display:inline-flex; align-items:center; justify-content:center; min-width:26px; height:22px; padding:0 8px; border-radius:99px; background:var(--accent); color:white; font-size:12px; font-weight:700; }
+  .applicant-list { display:flex; flex-direction:column; gap:10px; }
+  .applicant-row { border:1px solid var(--warm-border); border-radius:10px; padding:12px; background:var(--cream); cursor:pointer; transition:all 0.15s; }
+  .applicant-row:hover { border-color:var(--accent); background:var(--accent-light); }
+  .applicant-row-title { display:flex; align-items:center; justify-content:space-between; gap:8px; font-size:14px; font-weight:700; color:var(--ink); margin-bottom:4px; }
+  .applicant-row-meta { font-size:12px; color:var(--ink-muted); line-height:1.55; }
+  .app-status { display:inline-flex; padding:3px 8px; border-radius:99px; background:var(--paper); color:var(--accent); border:1px solid var(--accent-soft); font-size:11px; font-weight:700; flex-shrink:0; }
+  .application-detail-head { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; margin-bottom:16px; }
+  .application-detail-name { font-family:'DM Serif Display', serif; font-size:22px; color:var(--ink); margin-bottom:4px; }
+  .application-detail-role { font-size:13px; color:var(--ink-muted); line-height:1.5; }
+  .application-detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+  .application-info-box { background:var(--cream); border:1px solid var(--warm-border); border-radius:10px; padding:12px; }
+  .application-info-label { font-size:11px; color:var(--ink-muted); margin-bottom:4px; }
+  .application-info-val { font-size:13px; color:var(--ink-soft); font-weight:600; word-break:break-word; }
+  .application-section { border-top:1px solid var(--warm-border); padding-top:14px; margin-top:14px; }
+  .application-section-title { font-size:13px; font-weight:700; color:var(--ink); margin-bottom:8px; }
+  .application-section-text { font-size:13px; color:var(--ink-soft); line-height:1.7; white-space:pre-line; }
+  .application-file-row { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+  .application-file-link { display:inline-flex; align-items:center; padding:7px 10px; border-radius:8px; background:var(--accent-light); color:var(--accent); border:1px solid var(--accent-soft); font-size:12px; font-weight:700; text-decoration:none; }
+  @media (max-width: 768px) { .application-detail-grid { grid-template-columns:1fr; } }
   @media (max-width: 768px) { .company-admin-grid { grid-template-columns:1fr; } .company-admin-wrap { padding:24px 16px 60px; } }
 
 
@@ -2076,6 +2114,8 @@
   .career-help-panel-title { font-family:'DM Serif Display', serif; font-size:22px; margin-bottom:12px; }
   .career-help-panel p { color:rgba(255,255,255,0.72); font-size:14px; line-height:1.75; margin-bottom:16px; }
   .career-help-actions { display:flex; gap:10px; flex-wrap:wrap; }
+  .btn-cta-wa { display:inline-flex; align-items:center; gap:8px; background:#25D366; color:white; border:none; border-radius:8px; padding:11px 20px; font-family:'DM Sans', sans-serif; font-size:14px; font-weight:700; cursor:pointer; text-decoration:none; transition:background 0.2s, transform 0.1s; }
+  .btn-cta-wa:hover { background:#1ebe5d; transform:scale(1.02); }
   .career-help-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-bottom:24px; }
   .career-help-card { background:var(--paper); border:1px solid var(--warm-border); border-radius:12px; padding:22px; }
   .career-help-icon { width:42px; height:42px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:var(--accent-light); color:var(--accent); font-size:13px; font-weight:700; margin-bottom:14px; }
@@ -2095,14 +2135,22 @@
   .career-section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:14px; }
   .career-section-title { font-family:'DM Serif Display', serif; font-size:24px; color:var(--ink); }
   .career-section-sub { font-size:13px; color:var(--ink-muted); line-height:1.6; max-width:520px; }
-  .career-testimonial-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-bottom:24px; }
-  .career-testimonial-card { background:var(--paper); border:1px solid var(--warm-border); border-radius:12px; padding:20px; }
+  .testimonial-slideshow { position:relative; display:flex; align-items:center; gap:12px; }
+  .testimonial-track-wrap { overflow:hidden; flex:1; min-width:0; border-radius:12px; }
+  .testimonial-track { display:flex; gap:20px; transition:transform 0.4s cubic-bezier(.4,0,.2,1); will-change:transform; }
+  .career-testimonial-card { background:var(--paper); border:1px solid var(--warm-border); border-radius:12px; padding:24px; flex-shrink:0; box-sizing:border-box; }
+  .testimonial-arrow { width:40px; height:40px; border-radius:50%; border:1px solid var(--warm-border); background:var(--paper); color:var(--ink); font-size:26px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.15s; padding:0; font-family:sans-serif; line-height:1; }
+  .testimonial-arrow:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-light); }
+  .testimonial-dots { display:flex; justify-content:center; gap:7px; margin-top:14px; }
+  .testimonial-dot { width:8px; height:8px; border-radius:50%; background:var(--warm-border); cursor:pointer; transition:background 0.2s, transform 0.2s; border:none; padding:0; }
+  .testimonial-dot.active { background:var(--accent); transform:scale(1.25); }
   .career-testimonial-top { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
   .career-testimonial-avatar { width:42px; height:42px; border-radius:50%; background:var(--accent); color:white; display:flex; align-items:center; justify-content:center; font-family:'DM Serif Display', serif; font-size:16px; flex-shrink:0; }
   .career-testimonial-name { font-size:14px; font-weight:700; color:var(--ink); }
   .career-testimonial-role { font-size:12px; color:var(--ink-muted); margin-top:2px; }
   .career-testimonial-text { font-size:13px; color:var(--ink-soft); line-height:1.75; margin-bottom:12px; }
   .career-testimonial-badge { display:inline-flex; padding:5px 10px; border-radius:99px; background:var(--accent-light); color:var(--accent); font-size:12px; font-weight:700; }
+  @media (max-width: 768px) { .career-testimonial-card { min-width:calc(100%); } }
   .career-feedback { display:grid; grid-template-columns:0.9fr 1.1fr; gap:18px; align-items:start; background:var(--paper); border:1px solid var(--warm-border); border-radius:12px; padding:22px; }
   .career-feedback-copy h3 { font-family:'DM Serif Display', serif; font-size:22px; color:var(--ink); margin-bottom:8px; }
   .career-feedback-copy p { font-size:13px; color:var(--ink-soft); line-height:1.75; }
@@ -2113,7 +2161,7 @@
   .career-feedback-input:focus, .career-feedback-select:focus, .career-feedback-textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(45,106,79,0.1); background:var(--paper); }
   .career-feedback-submit { justify-self:end; padding:11px 22px; border:none; border-radius:9px; background:var(--accent); color:white; font-family:'DM Sans', sans-serif; font-size:13px; font-weight:700; cursor:pointer; }
   .career-feedback-submit:hover { background:#1B5235; }
-  @media (max-width: 768px) { .career-section-head, .career-feedback { display:block; } .career-testimonial-grid, .career-feedback-row { grid-template-columns:1fr; } .career-feedback-copy { margin-bottom:16px; } .career-feedback-submit { width:100%; } }
+  @media (max-width: 768px) { .career-section-head, .career-feedback { display:block; } .career-feedback-row { grid-template-columns:1fr; } .career-feedback-copy { margin-bottom:16px; } .career-feedback-submit { width:100%; } }
 
   /* ===== PROFILE PAGE ===== */
   .profile-wrap { max-width: 900px; margin: 0 auto; padding: 40px 5vw 80px; animation: fadeUp 0.4s ease both; }
@@ -2164,6 +2212,49 @@
     .edit-two-col { grid-template-columns: 1fr; gap: 0; }
   }
 
+
+  .btn-save.saved {
+    background: var(--accent-soft);
+    border-color: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .saved-job-list { display: grid; gap: 10px; }
+  .saved-job-item {
+    padding: 12px;
+    border: 1px solid var(--warm-border);
+    border-radius: 10px;
+    background: var(--cream);
+    cursor: pointer;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .saved-job-item:hover { border-color: var(--accent-soft); transform: translateY(-1px); }
+  .saved-job-title { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+  .saved-job-meta { font-size: 12px; color: var(--ink-muted); line-height: 1.6; }
+  .saved-job-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; }
+  .saved-job-pill { font-size: 11px; padding: 4px 8px; border-radius: 99px; background: var(--paper); color: var(--accent); border: 1px solid var(--accent-soft); }
+  .saved-job-remove { border: 0; background: transparent; color: var(--ink-muted); font-size: 12px; cursor: pointer; padding: 4px 0; }
+  .saved-job-remove:hover { color: var(--danger, #A53A2A); }
+
+  .application-history-list { display: grid; gap: 10px; }
+  .application-history-item {
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.06);
+    cursor: pointer;
+    transition: background 0.15s, transform 0.15s;
+  }
+  .application-history-item:hover { background: rgba(255,255,255,0.10); transform: translateY(-1px); }
+  .application-history-title { font-size: 13px; font-weight: 700; color: white; margin-bottom: 4px; }
+  .application-history-meta { font-size: 12px; color: rgba(255,255,255,0.62); line-height: 1.6; }
+  .application-history-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; }
+  .application-status-pill { font-size: 11px; padding: 4px 8px; border-radius: 99px; background: rgba(255,255,255,0.10); color: white; text-transform: capitalize; }
+  .application-status-pill.dikirim { background: rgba(45,106,79,0.30); color: #C9F2DE; }
+  .application-status-pill.direview { background: rgba(210,150,60,0.25); color: #FFE0A8; }
+  .application-status-pill.diterima { background: rgba(70,160,95,0.30); color: #BFF4CA; }
+  .application-status-pill.ditolak { background: rgba(180,70,60,0.25); color: #FFC3BA; }
+  .application-history-date { font-size: 11px; color: rgba(255,255,255,0.46); }
 </style>
 </head>
 <body>
@@ -2171,10 +2262,10 @@
 <nav>
   <a class="logo" onclick="showPage('home')" style="cursor:pointer">Workaholic<span>.</span></a>
   <ul class="nav-links">
+    <li><a href="#" onclick="showPage('about');return false;">About Us</a></li>
     <li><a href="#" onclick="showPage('home');return false;">Lowongan</a></li>
     <li><a href="#" onclick="showPage('companies');return false;">Perusahaan</a></li>
-    <li><a href="#" onclick="showPage('company-login');return false;">Untuk Perusahaan</a></li>
-    <li><a href="#" onclick="showPage('about');return false;">About Us</a></li>
+    <li><a href="#" id="nav-company-link" onclick="if(loggedInType==='company'){showPage('company-dashboard');loadCompanyDashboard();}else{showPage('company-login');}return false;">Untuk Perusahaan</a></li>
     <li id="nav-auth-btns" style="display:flex;gap:8px;list-style:none">
       <button class="nav-btn-login" onclick="showPage('login')">Masuk</button>
       <button class="nav-btn-signup" onclick="showPage('signup')">Daftar</button>
@@ -2288,7 +2379,7 @@
     <button class="modal-close" onclick="closeModalDirect()">&#215;</button>
     <div class="modal-logo" id="modal-logo"></div>
     <h2 id="modal-title"></h2>
-    <div class="modal-company" id="modal-company"></div>
+    <div class="modal-company" id="modal-company"><span class="modal-company-link" id="modal-company-name"></span><span id="modal-company-loc"></span></div>
     <div class="modal-meta" id="modal-meta"></div>
     <div class="modal-section">
       <h3>Tentang Posisi</h3>
@@ -2300,7 +2391,7 @@
     </div>
     <div class="modal-footer">
       <button class="btn-apply-lg" onclick="applyJob()">Lamar Sekarang</button>
-      <button class="btn-save" onclick="saveJob()">Simpan</button>
+      <button class="btn-save" id="btn-save-job-modal" onclick="saveJob()">Simpan</button>
     </div>
   </div>
 </div>
@@ -2459,6 +2550,8 @@ var jobs = [
 
 var filteredJobs = jobs.slice();
 var currentJobId = null;
+var savedJobIds = {};
+var savedJobs = [];
 
 
 function logoContent(item) {
@@ -2557,7 +2650,24 @@ function openJob(id) {
   var ml = document.getElementById('modal-logo');
   setLogoElement(ml, j);
   document.getElementById('modal-title').textContent = j.title;
-  document.getElementById('modal-company').textContent = j.company + ' · ' + j.location;
+  var nameEl = document.getElementById('modal-company-name');
+  nameEl.textContent = j.company;
+  if (j.company_id) {
+    nameEl.onclick = function(e) {
+      e.stopPropagation();
+      closeModalDirect();
+      if (!companies.length) {
+        loadCompanies();
+        setTimeout(function(){ openCompanyProfile(j.company_id); }, 400);
+      } else {
+        openCompanyProfile(j.company_id);
+      }
+    };
+  } else {
+    nameEl.onclick = null;
+    nameEl.style.cursor = 'default';
+  }
+  document.getElementById('modal-company-loc').textContent = ' · ' + j.location;
   document.getElementById('modal-meta').innerHTML =
     '<span class="meta-pill">&#128188; ' + j.type + '</span>'
     + '<span class="meta-pill">&#127968; ' + j.mode + '</span>'
@@ -2565,6 +2675,7 @@ function openJob(id) {
     + '<span class="meta-pill" style="font-weight:500;color:var(--accent);background:var(--accent-soft)">&#128181; ' + j.salary + '/bln</span>';
   document.getElementById('modal-desc').textContent = j.desc;
   document.getElementById('modal-qual').innerHTML = j.qual.map(function(q){return '<li>'+q+'</li>'}).join('');
+  updateSaveButton();
   document.getElementById('overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -2774,7 +2885,7 @@ function submitApplication() {
     .then(function(res){return res.json();})
     .then(function(data){
       if (btn) { btn.disabled=false; btn.textContent='Kirim Lamaran 🚀'; }
-      if (data.status==='ok') { showPage('home'); showToast('🎉 Lamaranmu berhasil dikirim!'); }
+      if (data.status==='ok') { showPage('home'); showToast('Lamaranmu berhasil dikirim!', 'success'); loadApplicationHistory(); }
       else if (data.status==='login') { showPage('login'); showToast('Kamu harus login dulu untuk melamar!'); }
       else { showToast(data.pesan||'Terjadi kesalahan, coba lagi!'); }
     })
@@ -2785,15 +2896,158 @@ function submitApplication() {
     });
 }
 
-function saveJob() {
-  showToast('Lowongan disimpan ke daftar pantaumu.');
+function updateSaveButton() {
+  var btn = document.getElementById('btn-save-job-modal');
+  if (!btn) return;
+  var saved = !!savedJobIds[currentJobId];
+  btn.textContent = saved ? 'Tersimpan' : 'Simpan';
+  btn.classList.toggle('saved', saved);
 }
 
-function showToast(msg) {
+function saveJob() {
+  if (!loggedInUser || loggedInType !== 'user') {
+    closeModalDirect();
+    showToast('Login sebagai pencari kerja dulu untuk menyimpan lowongan!', 'error');
+    showPage('login');
+    return;
+  }
+  if (!currentJobId) return;
+  var btn = document.getElementById('btn-save-job-modal');
+  if (savedJobIds[currentJobId]) {
+    showToast('Lowongan ini sudah ada di profilmu.', 'success');
+    return;
+  }
+  var fd = new FormData();
+  fd.append('lowongan_id', currentJobId);
+  if (btn) { btn.disabled = true; btn.textContent = 'Menyimpan...'; }
+  fetch('save_job.php', { method:'POST', body:fd })
+    .then(function(res){ return res.json(); })
+    .then(function(data){
+      if (btn) btn.disabled = false;
+      if (data.status === 'ok') {
+        savedJobIds[currentJobId] = true;
+        updateSaveButton();
+        showToast(data.pesan || 'Lowongan berhasil disimpan.', 'success');
+        loadSavedJobs();
+      } else if (data.status === 'login') {
+        closeModalDirect();
+        showPage('login');
+        showToast(data.pesan || 'Login dulu untuk menyimpan lowongan!', 'error');
+      } else {
+        updateSaveButton();
+        showToast(data.pesan || 'Gagal menyimpan lowongan!', 'error');
+      }
+    })
+    .catch(function(){ if (btn) btn.disabled = false; updateSaveButton(); showToast('Gagal terhubung ke server!', 'error'); });
+}
+
+function loadSavedJobs() {
+  if (!loggedInUser || loggedInType !== 'user') return;
+  fetch('list_saved_jobs.php')
+    .then(function(res){ return res.json(); })
+    .then(function(res){
+      if (res.status === 'ok') {
+        savedJobIds = {};
+        savedJobs = res.data || [];
+        savedJobs.forEach(function(j){
+          savedJobIds[j.id] = true;
+          if (!jobs.some(function(x){ return x.id === j.id; })) jobs.push(j);
+        });
+        renderSavedJobs(savedJobs);
+        updateSaveButton();
+      }
+    })
+    .catch(function(){ renderSavedJobs([]); });
+}
+
+function renderSavedJobs(items) {
+  var box = document.getElementById('saved-jobs-display');
+  if (!box) return;
+  if (!items.length) {
+    box.innerHTML = '<div class="profile-empty">Belum ada lowongan yang disimpan.</div>';
+    return;
+  }
+  box.innerHTML = '<div class="saved-job-list">' + items.map(function(j){
+    return '<div class="saved-job-item" onclick="openSavedJob('+j.id+')">'
+      + '<div class="saved-job-title">'+escapeHtml(j.title)+'</div>'
+      + '<div class="saved-job-meta">'+escapeHtml(j.company)+' &middot; '+escapeHtml(j.location)+'<br>'+escapeHtml(j.type)+' &middot; '+escapeHtml(j.salary)+'</div>'
+      + '<div class="saved-job-footer"><span class="saved-job-pill">Dipantau sejak '+escapeHtml(j.saved_at || '-')+'</span>'
+      + '<button class="saved-job-remove" onclick="event.stopPropagation();removeSavedJob('+j.id+')">Hapus</button></div>'
+      + '</div>';
+  }).join('') + '</div>';
+}
+
+function openSavedJob(id) {
+  var j = jobs.find(function(x){ return x.id === id; }) || savedJobs.find(function(x){ return x.id === id; });
+  if (!j) { loadSavedJobs(); showToast('Memuat detail lowongan, coba klik lagi sebentar.'); return; }
+  if (!jobs.some(function(x){ return x.id === id; })) jobs.push(j);
+  showPage('home');
+  setTimeout(function(){ openJob(id); }, 80);
+}
+
+function loadApplicationHistory() {
+  if (!loggedInUser || loggedInType !== 'user') return;
+  fetch('list_applications.php')
+    .then(function(res){ return res.json(); })
+    .then(function(res){
+      if (res.status === 'ok') renderApplicationHistory(res.data || []);
+    })
+    .catch(function(){ renderApplicationHistory([]); });
+}
+
+function renderApplicationHistory(items) {
+  var box = document.getElementById('application-history-display');
+  var summary = document.getElementById('application-history-summary');
+  if (!box) return;
+  if (summary) summary.textContent = items.length ? items.length + ' lamaran pernah dikirim.' : 'Belum ada lamaran yang dikirim.';
+  if (!items.length) {
+    box.innerHTML = '<div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.7">Belum ada riwayat lamaran. Mulai lamar lowongan yang cocok untuk melihat statusnya di sini.</div>';
+    return;
+  }
+  box.innerHTML = '<div class="application-history-list">' + items.map(function(a){
+    var status = (a.status || 'dikirim').toLowerCase();
+    return '<div class="application-history-item" onclick="openApplicationJob('+a.lowongan_id+')">'
+      + '<div class="application-history-title">'+escapeHtml(a.title || 'Lowongan')+'</div>'
+      + '<div class="application-history-meta">'+escapeHtml(a.company || '-')+' &middot; '+escapeHtml(a.location || '-')+'<br>'+escapeHtml(a.type || '-')+' &middot; '+escapeHtml(a.mode || '-')+'</div>'
+      + '<div class="application-history-footer"><span class="application-status-pill '+escapeHtml(status)+'">'+escapeHtml(status)+'</span><span class="application-history-date">'+escapeHtml(a.sent_at || '-')+'</span></div>'
+      + '</div>';
+  }).join('') + '</div>';
+}
+
+function openApplicationJob(id) {
+  var j = jobs.find(function(x){ return x.id === id; }) || savedJobs.find(function(x){ return x.id === id; });
+  showPage('home');
+  if (j) { if (!jobs.some(function(x){ return x.id === id; })) jobs.push(j); setTimeout(function(){ openJob(id); }, 80); return; }
+  loadJobs();
+  setTimeout(function(){ openJob(id); }, 500);
+}
+
+function removeSavedJob(id) {
+  var fd = new FormData();
+  fd.append('lowongan_id', id);
+  fetch('remove_saved_job.php', { method:'POST', body:fd })
+    .then(function(res){ return res.json(); })
+    .then(function(data){
+      if (data.status === 'ok') {
+        delete savedJobIds[id];
+        showToast(data.pesan || 'Lowongan dihapus dari pantauan.', 'success');
+        loadSavedJobs();
+        updateSaveButton();
+      } else {
+        showToast(data.pesan || 'Gagal menghapus lowongan tersimpan!', 'error');
+      }
+    })
+    .catch(function(){ showToast('Gagal terhubung ke server!', 'error'); });
+}
+
+function showToast(msg, type) {
   var t = document.getElementById('toast');
   t.textContent = msg;
+  t.classList.remove('success', 'error-toast');
+  if (type === 'success') t.classList.add('success');
+  if (type === 'error')   t.classList.add('error-toast');
   t.classList.add('show');
-  setTimeout(function(){t.classList.remove('show')}, 3000);
+  setTimeout(function(){ t.classList.remove('show', 'success', 'error-toast'); }, 3000);
 }
 
 document.addEventListener('keydown', function(e){
@@ -2802,6 +3056,9 @@ document.addEventListener('keydown', function(e){
 
 
 var companies = [];
+var companyApplications = [];
+var currentEditingJobId = null;
+var companyJobs = [];
 var loggedInType = null;
 function escapeHtml(value) { return String(value == null ? '' : value).replace(/[&<>'"]/g, function(ch){ return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]; }); }
 function loadJobs() {
@@ -2868,12 +3125,127 @@ function doCompanyLogin() {
     })
     .catch(function(){showToast('Gagal terhubung ke server!');});
 }
-function doCompanySignup(){var pass=document.getElementById('cs-pass').value;var pass2=document.getElementById('cs-pass2').value;if(pass!==pass2){showToast('Password tidak cocok!');return;}var fd=new FormData();fd.append('nama_perusahaan',document.getElementById('cs-name').value.trim());fd.append('industri',document.getElementById('cs-industry').value.trim());fd.append('email',document.getElementById('cs-email').value.trim());fd.append('kota',document.getElementById('cs-city').value.trim());fd.append('website',document.getElementById('cs-website').value.trim());fd.append('deskripsi',document.getElementById('cs-desc').value.trim());fd.append('cari_kandidat',document.getElementById('cs-looking').value.trim());fd.append('password',pass);fetch('company_register.php',{method:'POST',body:fd}).then(function(r){return r.json();}).then(function(d){if(d.status==='ok')companyLoginSuccess(d.nama);else showToast(d.pesan);}).catch(function(){showToast('Gagal terhubung ke server!');});}
-function companyLoginSuccess(name){loggedInUser=name;loggedInType='company';document.getElementById('nav-auth-btns').style.display='none';var badge=document.getElementById('nav-user-badge');badge.style.display='list-item';document.getElementById('nav-username').textContent=name;document.getElementById('nav-avatar').textContent=name.split(' ').slice(0,2).map(function(w){return w[0];}).join('').toUpperCase();showPage('company-dashboard');loadCompanyDashboard();showToast('Halo, admin '+name+'!');}
-function loadCompanyDashboard(){fetch('company_session.php').then(function(r){return r.json();}).then(function(res){if(res.status!=='ok'){showToast(res.pesan);showPage('company-login');return;}var d=res.data;document.getElementById('cd-title').textContent=d.nama_perusahaan||'Company Dashboard';document.getElementById('cd-sub').textContent=(d.industri||'Perusahaan')+' · '+(d.kota||'Lokasi belum diisi');document.getElementById('cd-name').value=d.nama_perusahaan||'';document.getElementById('cd-industry').value=d.industri||'';document.getElementById('cd-city').value=d.kota||'';document.getElementById('cd-website').value=d.website||'';document.getElementById('cd-tagline').value=d.tagline||'';document.getElementById('cd-desc').value=d.deskripsi||'';document.getElementById('cd-looking').value=d.cari_kandidat||'';setAvatarElement(document.getElementById('cd-logo-preview'), d.nama_perusahaan, d.logo || '');setAvatarElement(document.getElementById('nav-avatar'), d.nama_perusahaan, d.logo || '');renderCompanyJobs(res.jobs||[]);}).catch(function(){showToast('Gagal memuat dashboard perusahaan!');});}
-function renderCompanyJobs(items){var list=document.getElementById('cd-job-list');if(!list)return;if(!items.length){list.innerHTML='<div class="profile-empty">Belum ada lowongan.</div>';return;}list.innerHTML=items.map(function(j){return '<div class="company-job-row"><div class="company-job-row-title">'+escapeHtml(j.judul)+'</div><div class="company-job-row-meta">'+escapeHtml(j.lokasi)+' · '+escapeHtml(j.tipe)+' · '+escapeHtml(j.status)+'</div></div>';}).join('');}
-function saveCompanyProfile(){var fd=new FormData();fd.append('nama_perusahaan',document.getElementById('cd-name').value.trim());fd.append('industri',document.getElementById('cd-industry').value.trim());fd.append('kota',document.getElementById('cd-city').value.trim());fd.append('website',document.getElementById('cd-website').value.trim());fd.append('tagline',document.getElementById('cd-tagline').value.trim());fd.append('deskripsi',document.getElementById('cd-desc').value.trim());fd.append('cari_kandidat',document.getElementById('cd-looking').value.trim());fetch('update_company_profile.php',{method:'POST',body:fd}).then(function(r){return r.json();}).then(function(d){if(d.status==='ok'){showToast(d.pesan);loggedInUser=d.nama;document.getElementById('nav-username').textContent=d.nama;loadCompanyDashboard();loadCompanies();}else showToast(d.pesan);}).catch(function(){showToast('Gagal menyimpan company profile!');});}
-function createCompanyJob(){var fd=new FormData();fd.append('judul',document.getElementById('job-title-new').value.trim());fd.append('lokasi',document.getElementById('job-location-new').value.trim());fd.append('tipe',document.getElementById('job-type-new').value);fd.append('mode_kerja',document.getElementById('job-mode-new').value);fd.append('pengalaman',document.getElementById('job-exp-new').value.trim());fd.append('gaji_min',document.getElementById('job-salary-min-new').value);fd.append('gaji_max',document.getElementById('job-salary-max-new').value);fd.append('deskripsi',document.getElementById('job-desc-new').value.trim());fd.append('kualifikasi',document.getElementById('job-qual-new').value.trim());fetch('tambah_lowongan.php',{method:'POST',body:fd}).then(function(r){return r.json();}).then(function(d){if(d.status==='ok'){showToast(d.pesan);['job-title-new','job-location-new','job-exp-new','job-salary-min-new','job-salary-max-new','job-desc-new','job-qual-new'].forEach(function(id){document.getElementById(id).value='';});loadCompanyDashboard();loadJobs();loadCompanies();}else if(d.status==='login'){showPage('company-login');showToast(d.pesan);}else showToast(d.pesan);}).catch(function(){showToast('Gagal menambah lowongan!');});}
+function doCompanySignup() {
+  var nama  = document.getElementById('cs-name').value.trim();
+  var email = document.getElementById('cs-email').value.trim();
+  var pass  = document.getElementById('cs-pass').value;
+  var pass2 = document.getElementById('cs-pass2').value;
+  var ok = true;
+  ['cs-name','cs-email','cs-pass','cs-pass2'].forEach(clearFieldError);
+  if (!nama)  { setFieldError('cs-name',  'Nama perusahaan wajib diisi'); ok=false; }
+  if (!email) { setFieldError('cs-email', 'Email wajib diisi'); ok=false; }
+  else if (!isValidEmail(email)) { setFieldError('cs-email','Format email tidak valid (contoh: hr@perusahaan.com)'); ok=false; }
+  if (!pass)  { setFieldError('cs-pass',  'Password wajib diisi'); ok=false; }
+  else if (pass.length < 8) { setFieldError('cs-pass','Password minimal 8 karakter'); ok=false; }
+  if (!pass2) { setFieldError('cs-pass2', 'Konfirmasi password wajib diisi'); ok=false; }
+  else if (pass && pass !== pass2) { setFieldError('cs-pass2','Password tidak cocok'); ok=false; }
+  if (!ok) return;
+  var fd = new FormData();
+  fd.append('nama_perusahaan', nama);
+  fd.append('industri',  document.getElementById('cs-industry').value.trim());
+  fd.append('email',     email);
+  fd.append('kota',      document.getElementById('cs-city').value.trim());
+  fd.append('website',   document.getElementById('cs-website').value.trim());
+  fd.append('deskripsi', document.getElementById('cs-desc').value.trim());
+  fd.append('cari_kandidat', document.getElementById('cs-looking').value.trim());
+  fd.append('password',  pass);
+  fetch('company_register.php', {method:'POST',body:fd})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if (d.status==='ok') companyLoginSuccess(d.nama);
+      else setFieldError('cs-email', d.pesan||'Pendaftaran gagal');
+    })
+    .catch(function(){showToast('Gagal terhubung ke server!','error');});
+}
+function updateCtaDaftarBtn(){var b=document.getElementById('cta-daftar-btn');if(!b)return;b.style.display=loggedInUser?'none':'';}
+function updateCompanyNavLink(){var link=document.getElementById('nav-company-link');if(!link)return;link.textContent=loggedInType==='company'?'Dashboard Admin':'Untuk Perusahaan';}
+function companyLoginSuccess(name){loggedInUser=name;loggedInType='company';document.getElementById('nav-auth-btns').style.display='none';var badge=document.getElementById('nav-user-badge');badge.style.display='list-item';document.getElementById('nav-username').textContent=name;document.getElementById('nav-avatar').textContent=name.split(' ').slice(0,2).map(function(w){return w[0];}).join('').toUpperCase();updateCompanyNavLink();updateCtaDaftarBtn();showPage('company-dashboard');loadCompanyDashboard();showToast('Halo, admin '+name+'!');}
+function loadCompanyDashboard(){fetch('company_session.php').then(function(r){return r.json();}).then(function(res){if(res.status!=='ok'){showToast(res.pesan);showPage('company-login');return;}var d=res.data;document.getElementById('cd-title').textContent=d.nama_perusahaan||'Company Dashboard';document.getElementById('cd-sub').textContent=(d.industri||'Perusahaan')+' · '+(d.kota||'Lokasi belum diisi');document.getElementById('cd-name').value=d.nama_perusahaan||'';document.getElementById('cd-industry').value=d.industri||'';document.getElementById('cd-city').value=d.kota||'';document.getElementById('cd-website').value=d.website||'';document.getElementById('cd-tagline').value=d.tagline||'';document.getElementById('cd-desc').value=d.deskripsi||'';document.getElementById('cd-looking').value=d.cari_kandidat||'';setAvatarElement(document.getElementById('cd-logo-preview'), d.nama_perusahaan, d.logo || '');setAvatarElement(document.getElementById('nav-avatar'), d.nama_perusahaan, d.logo || '');companyJobs=res.jobs||[];renderCompanyJobs(companyJobs);companyApplications=res.applications||[];renderCompanyApplications(companyApplications);}).catch(function(){showToast('Gagal memuat dashboard perusahaan!');});}
+function renderCompanyApplications(items){var list=document.getElementById('cd-applicant-list');var count=document.getElementById('cd-app-count');if(count)count.textContent=items.length;if(!list)return;if(!items.length){list.innerHTML='<div class="profile-empty">Belum ada lamaran masuk.</div>';return;}list.innerHTML=items.map(function(a,i){return '<div class="applicant-row" data-app-index="'+i+'" onclick="openCompanyApplication('+i+')"><div class="applicant-row-title"><span>'+escapeHtml(a.nama_lengkap||a.user_nama||'Pelamar')+'</span><span class="app-status">'+escapeHtml(a.status||'dikirim')+'</span></div><div class="applicant-row-meta">Melamar '+escapeHtml(a.job_title||'Lowongan')+'<br>'+escapeHtml(a.email||'')+' · '+escapeHtml(a.created_at||'')+'</div></div>';}).join('');}
+function appVal(v){return escapeHtml(v&&String(v).trim()!==''?v:'-');}
+function appText(v){return escapeHtml(v&&String(v).trim()!==''?v:'Belum diisi.');}
+function openCompanyApplication(i){var a=companyApplications[i];if(!a)return;showPage('company-application');var box=document.getElementById('cd-application-detail');if(!box)return;document.querySelectorAll('.applicant-row').forEach(function(r){r.classList.toggle('active', r.getAttribute('data-app-index')==String(i));});var cv=a.cv_file?'<a class="application-file-link" href="'+escapeHtml(a.cv_file)+'" target="_blank">Lihat CV: '+escapeHtml(a.cv_original_name||'CV')+'</a>':'';var letterFile=a.cover_letter_file?'<a class="application-file-link" href="'+escapeHtml(a.cover_letter_file)+'" target="_blank">Lihat Surat: '+escapeHtml(a.cover_letter_original_name||'Surat Lamaran')+'</a>':'';box.innerHTML='<div class="application-detail-head"><div><div class="application-detail-name">'+appVal(a.nama_lengkap||a.user_nama)+'</div><div class="application-detail-role">Melamar: '+appVal(a.job_title)+' · '+appVal(a.job_location)+'<br>Dikirim: '+appVal(a.created_at)+'</div></div><span class="app-status">'+appVal(a.status||'dikirim')+'</span></div><div class="application-detail-grid"><div class="application-info-box"><div class="application-info-label">Email</div><div class="application-info-val">'+appVal(a.email)+'</div></div><div class="application-info-box"><div class="application-info-label">No. HP</div><div class="application-info-val">'+appVal(a.no_hp)+'</div></div><div class="application-info-box"><div class="application-info-label">Domisili</div><div class="application-info-val">'+appVal(a.kota||a.user_lokasi)+'</div></div><div class="application-info-box"><div class="application-info-label">Ekspektasi Gaji</div><div class="application-info-val">'+appVal(a.gaji_ekspektasi)+'</div></div><div class="application-info-box"><div class="application-info-label">Pendidikan</div><div class="application-info-val">'+appVal(a.pendidikan||a.pendidikan_info)+'</div></div><div class="application-info-box"><div class="application-info-label">Pengalaman</div><div class="application-info-val">'+appVal(a.pengalaman)+'</div></div></div><div class="application-section"><div class="application-section-title">Profil Pelamar</div><div class="application-section-text">'+appText(a.headline)+'\n\n'+appText(a.tentang)+'</div></div><div class="application-section"><div class="application-section-title">Skills</div><div class="application-section-text">'+appText(a.skills)+'</div></div><div class="application-section"><div class="application-section-title">Pengalaman Kerja</div><div class="application-section-text">'+appText(a.pengalaman_kerja)+'</div></div><div class="application-section"><div class="application-section-title">Cover Letter</div><div class="application-section-text">'+appText(a.cover_letter)+'</div><div class="application-file-row">'+cv+letterFile+'</div></div><div class="application-section"><div class="application-section-title">Link Profil</div><div class="application-section-text">LinkedIn: '+appVal(a.linkedin)+'<br>Portfolio: '+appVal(a.portfolio)+'</div></div>';window.scrollTo({top:0,behavior:'smooth'});}
+function renderCompanyJobs(items){var list=document.getElementById('cd-job-list');if(!list)return;if(!items.length){list.innerHTML='<div class="profile-empty">Belum ada lowongan.</div>';return;}list.innerHTML=items.map(function(j){return '<div class="company-job-row"><div class="company-job-row-head"><div><div class="company-job-row-title">'+escapeHtml(j.judul)+'</div><div class="company-job-row-meta">'+escapeHtml(j.lokasi)+' · '+escapeHtml(j.tipe)+' · '+escapeHtml(j.status)+'</div></div><div class="company-job-actions"><button class="job-action-btn" onclick="editCompanyJob('+j.id+')">Edit</button><button class="job-action-btn danger" onclick="deleteCompanyJob('+j.id+')">Hapus</button></div></div></div>';}).join('');}
+function findCompanyJob(id){return (companyJobs||[]).find(function(j){return parseInt(j.id)===parseInt(id);});}
+function editCompanyJob(id){var j=findCompanyJob(id);if(!j){showToast('Lowongan tidak ditemukan!','error');return;}currentEditingJobId=parseInt(id);document.getElementById('job-title-new').value=j.judul||'';document.getElementById('job-location-new').value=j.lokasi||'';document.getElementById('job-type-new').value=j.tipe||'Full-time';document.getElementById('job-mode-new').value=j.mode_kerja||'On-site';document.getElementById('job-exp-new').value=j.pengalaman||'';document.getElementById('job-salary-min-new').value=j.gaji_min||'';document.getElementById('job-salary-max-new').value=j.gaji_max||'';document.getElementById('job-desc-new').value=j.deskripsi||'';document.getElementById('job-qual-new').value=j.kualifikasi||'';var btn=document.getElementById('btn-save-job');if(btn)btn.textContent='Simpan Perubahan';document.getElementById('job-title-new').scrollIntoView({behavior:'smooth',block:'center'});showToast('Mode edit lowongan aktif. Ubah data lalu klik Simpan Perubahan.');}
+function resetCompanyJobForm(){currentEditingJobId=null;['job-title-new','job-location-new','job-exp-new','job-salary-min-new','job-salary-max-new','job-desc-new','job-qual-new'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});var btn=document.getElementById('btn-save-job');if(btn)btn.textContent='Terbitkan Lowongan';}
+function deleteCompanyJob(id){if(!confirm('Hapus lowongan ini dari dashboard dan daftar publik? Lamaran yang sudah masuk tetap tersimpan.'))return;var fd=new FormData();fd.append('id',id);fetch('delete_lowongan.php',{method:'POST',body:fd}).then(function(r){return r.json();}).then(function(d){if(d.status==='ok'){showToast(d.pesan,'success');loadCompanyDashboard();loadJobs();loadCompanies();}else if(d.status==='login'){showPage('company-login');showToast(d.pesan);}else showToast(d.pesan||'Gagal menghapus lowongan!','error');}).catch(function(){showToast('Gagal terhubung ke server!','error');});}
+function saveCompanyProfile() {
+  var nama = document.getElementById('cd-name').value.trim();
+  clearFieldError('cd-name');
+  if (!nama) { setFieldError('cd-name','Nama perusahaan wajib diisi'); return; }
+  var fd = new FormData();
+  fd.append('nama_perusahaan', nama);
+  fd.append('industri',    document.getElementById('cd-industry').value.trim());
+  fd.append('kota',        document.getElementById('cd-city').value.trim());
+  fd.append('website',     document.getElementById('cd-website').value.trim());
+  fd.append('tagline',     document.getElementById('cd-tagline').value.trim());
+  fd.append('deskripsi',   document.getElementById('cd-desc').value.trim());
+  fd.append('cari_kandidat', document.getElementById('cd-looking').value.trim());
+  fetch('update_company_profile.php', {method:'POST',body:fd})
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if (d.status==='ok') {
+        showToast(d.pesan||'Profil berhasil disimpan!', 'success');
+        loggedInUser=d.nama;
+        document.getElementById('nav-username').textContent=d.nama;
+        loadCompanyDashboard(); loadCompanies();
+      } else {
+        showToast(d.pesan||'Gagal menyimpan!', 'error');
+      }
+    })
+    .catch(function(){showToast('Gagal menyimpan company profile!','error');});
+}
+function createCompanyJob() {
+  var judul  = document.getElementById('job-title-new').value.trim();
+  var lokasi = document.getElementById('job-location-new').value.trim();
+  var deskripsi = document.getElementById('job-desc-new').value.trim();
+  var gajiMin = parseInt(document.getElementById('job-salary-min-new').value) || 0;
+  var gajiMax = parseInt(document.getElementById('job-salary-max-new').value) || 0;
+
+  // Validasi wajib
+  ['job-title-new','job-location-new','job-desc-new'].forEach(clearFieldError);
+  var ok = true;
+  if (!judul)     { setFieldError('job-title-new',    'Judul lowongan wajib diisi'); ok=false; }
+  if (!lokasi)    { setFieldError('job-location-new', 'Lokasi wajib diisi'); ok=false; }
+  if (!deskripsi) { setFieldError('job-desc-new',     'Deskripsi lowongan wajib diisi'); ok=false; }
+  if (gajiMin > 0 && gajiMax > 0 && gajiMin > gajiMax) {
+    setFieldError('job-salary-min-new', 'Gaji minimum tidak boleh melebihi gaji maksimum');
+    ok=false;
+  }
+  if (!ok) return;
+
+  var fd = new FormData();
+  if (currentEditingJobId) fd.append('id', currentEditingJobId);
+  fd.append('judul',      judul);
+  fd.append('lokasi',     lokasi);
+  fd.append('tipe',       document.getElementById('job-type-new').value);
+  fd.append('mode_kerja', document.getElementById('job-mode-new').value);
+  fd.append('pengalaman', document.getElementById('job-exp-new').value.trim());
+  fd.append('gaji_min',   gajiMin);
+  fd.append('gaji_max',   gajiMax);
+  fd.append('deskripsi',  deskripsi);
+  fd.append('kualifikasi',document.getElementById('job-qual-new').value.trim());
+
+  var btn = document.querySelector('.btn-save-profile[onclick="createCompanyJob()"]');
+  if (btn) { btn.disabled=true; btn.textContent='Menerbitkan...'; }
+
+  fetch((currentEditingJobId ? 'update_lowongan.php' : 'tambah_lowongan.php'), {method:'POST', body:fd})
+    .then(function(r){ return r.json(); })
+    .then(function(d) {
+      if (btn) { btn.disabled=false; btn.textContent=(currentEditingJobId?'Simpan Perubahan':'Terbitkan Lowongan'); }
+      if (d.status==='ok') {
+        showToast(d.pesan||(currentEditingJobId?'Lowongan berhasil diperbarui!':'Lowongan berhasil diterbitkan!'), 'success');
+        resetCompanyJobForm();
+        loadCompanyDashboard(); loadJobs(); loadCompanies();
+      } else if (d.status==='login') {
+        showPage('company-login'); showToast(d.pesan);
+      } else {
+        showToast(d.pesan||'Terjadi kesalahan!', 'error');
+      }
+    })
+    .catch(function(){ if(btn){btn.disabled=false;btn.textContent='Terbitkan Lowongan';} showToast('Gagal menambah lowongan!','error'); });
+}
 
 
 renderJobs();
@@ -2882,6 +3254,7 @@ loadCompanies();
 
 // --- AUTH & PAGE ROUTING ---
 var loggedInUser = null;
+var currentUserPhoto = '';
 
 function showPage(name) {
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
@@ -2896,6 +3269,88 @@ function showPage(name) {
   if(footer)  footer.style.display  = hide ? 'none' : '';
   if(name === 'companies') loadCompanies();
   if(name === 'company-dashboard') loadCompanyDashboard();
+  if(name === 'about') loadTestimonials();
+}
+
+function loadTestimonials() {
+  fetch('load_testimonials.php')
+    .then(function(res){ return res.json(); })
+    .then(function(res){
+      if (res.status !== 'ok' || !res.data.length) { initSlideshow(); return; }
+      var list = document.getElementById('career-testimonial-list');
+      if (!list) { initSlideshow(); return; }
+      var existing = list.innerHTML;
+      var html = res.data.map(function(t){
+        var initials = t.nama.split(' ').slice(0,2).map(function(w){return w.charAt(0);}).join('').toUpperCase() || 'U';
+        return '<div class="career-testimonial-card">'
+          + '<div class="career-testimonial-top"><div class="career-testimonial-avatar">' + escapeHtml(initials) + '</div>'
+          + '<div><div class="career-testimonial-name">' + escapeHtml(t.nama) + '</div>'
+          + '<div class="career-testimonial-role">' + escapeHtml(t.role || 'Pengguna Workaholic') + '</div></div></div>'
+          + '<div class="career-testimonial-text">' + escapeHtml(t.pesan) + '</div>'
+          + '<div class="career-testimonial-badge">Testimoni</div>'
+          + '</div>';
+      }).join('');
+      list.innerHTML = html + existing;
+      initSlideshow();
+    })
+    .catch(function(){ initSlideshow(); });
+}
+
+var _slideIndex = 0;
+function initSlideshow() {
+  var track = document.getElementById('career-testimonial-list');
+  var dotsEl = document.getElementById('testimonial-dots');
+  if (!track || !dotsEl) return;
+  _slideIndex = 0;
+  var cards = track.querySelectorAll('.career-testimonial-card');
+  var total = cards.length;
+  if (!total) return;
+  // Set card widths based on actual wrap width
+  setSlideshowCardWidths();
+  // Dots
+  dotsEl.innerHTML = '';
+  for (var i = 0; i < total; i++) {
+    (function(idx){
+      var dot = document.createElement('button');
+      dot.className = 'testimonial-dot' + (idx === 0 ? ' active' : '');
+      dot.onclick = function(){ goToSlide(idx); };
+      dotsEl.appendChild(dot);
+    })(i);
+  }
+  goToSlide(0);
+}
+
+function setSlideshowCardWidths() {
+  var track = document.getElementById('career-testimonial-list');
+  if (!track) return;
+  var wrap = track.parentElement;
+  var wrapWidth = wrap.offsetWidth;
+  var perView = window.innerWidth <= 768 ? 1 : 3;
+  var gap = 20;
+  var cardWidth = (wrapWidth - (perView - 1) * gap) / perView;
+  var cards = track.querySelectorAll('.career-testimonial-card');
+  cards.forEach(function(c){ c.style.width = cardWidth + 'px'; c.style.minWidth = cardWidth + 'px'; });
+}
+
+function goToSlide(idx) {
+  var track = document.getElementById('career-testimonial-list');
+  var dotsEl = document.getElementById('testimonial-dots');
+  if (!track) return;
+  var cards = track.querySelectorAll('.career-testimonial-card');
+  var total = cards.length;
+  if (!total) return;
+  _slideIndex = ((idx % total) + total) % total;
+  var gap = 20;
+  var cardWidth = cards[0].offsetWidth;
+  track.style.transform = 'translateX(-' + (_slideIndex * (cardWidth + gap)) + 'px)';
+  if (dotsEl) {
+    var dots = dotsEl.querySelectorAll('.testimonial-dot');
+    dots.forEach(function(d, i){ d.classList.toggle('active', i === _slideIndex); });
+  }
+}
+
+function slideTestimonial(dir) {
+  goToSlide(_slideIndex + dir);
 }
 
 function doLogin() {
@@ -2952,8 +3407,12 @@ function doSignup() {
     .catch(function(){ if(btn){btn.disabled=false;btn.textContent='Daftar Sekarang';} showToast('Gagal terhubung ke server!'); });
 }
 
-function doGoogleAuth() {
-  loginSuccess('Pengguna Google');
+function doGoogleAuth(type) {
+  if (window.startGoogleAuth) {
+    window.startGoogleAuth(type || 'user');
+    return;
+  }
+  showToast('Firebase sedang dimuat, coba lagi sebentar.');
 }
 
 function loginSuccess(name) {
@@ -2968,6 +3427,7 @@ function loginSuccess(name) {
   document.getElementById('nav-avatar').textContent = initials;
   showPage('home');
   showToast('Halo, ' + name + '! Selamat datang di Workaholic 👋');
+  updateCtaDaftarBtn();
 }
 
 function doLogout() {
@@ -2977,6 +3437,8 @@ function doLogout() {
       loggedInType = null;
       document.getElementById('nav-auth-btns').style.display = 'flex';
       document.getElementById('nav-user-badge').style.display = 'none';
+      updateCompanyNavLink();
+      updateCtaDaftarBtn();
       showPage('home');
       showToast('Kamu telah keluar. Sampai jumpa!');
     });
@@ -3085,6 +3547,8 @@ function doLogout() {
   <div class="auth-field"><label class="auth-label">Email Perusahaan</label><input class="auth-input" type="email" id="cl-email" placeholder="hr@perusahaan.com"></div>
   <div class="auth-field"><label class="auth-label">Password</label><input class="auth-input" type="password" id="cl-pass" placeholder="Password perusahaan"></div>
   <button class="btn-auth" onclick="doCompanyLogin()">Masuk sebagai Perusahaan</button>
+  <div class="auth-divider">atau</div>
+  <button class="btn-google" onclick="doGoogleAuth('company')"><span class="google-icon"></span>Masuk Perusahaan dengan Google</button>
   <div class="auth-switch">Belum punya akun perusahaan? <a onclick="showPage('company-signup')">Daftar perusahaan</a></div>
   <div class="auth-alt-link"><a onclick="showPage('login')">Masuk sebagai pencari kerja</a></div>
 </div></div>
@@ -3103,6 +3567,8 @@ function doLogout() {
   <div class="auth-field"><label class="auth-label">Sedang mencari kandidat seperti apa?</label><textarea class="edit-textarea" id="cs-looking" placeholder="Contoh: kandidat yang kuat di komunikasi, teliti, dan nyaman bekerja hybrid..."></textarea></div>
   <div class="field-row"><div class="auth-field"><label class="auth-label">Password *</label><input class="auth-input" type="password" id="cs-pass" placeholder="Minimal 8 karakter"></div><div class="auth-field"><label class="auth-label">Konfirmasi Password *</label><input class="auth-input" type="password" id="cs-pass2" placeholder="Ulangi password"></div></div>
   <button class="btn-auth" onclick="doCompanySignup()">Buat Akun Perusahaan</button>
+  <div class="auth-divider">atau</div>
+  <button class="btn-google" onclick="doGoogleAuth('company')"><span class="google-icon"></span>Daftar Perusahaan dengan Google</button>
   <div class="auth-switch">Sudah punya akun perusahaan? <a onclick="showPage('company-login')">Masuk</a></div>
 </div></div>
 </div>
@@ -3111,13 +3577,28 @@ function doLogout() {
 <div id="page-company-dashboard" class="page">
 <div class="company-admin-wrap">
   <div class="company-admin-head"><div><div class="hero-kicker">Admin Perusahaan</div><div class="company-admin-title" id="cd-title">Company Dashboard</div><div class="company-admin-sub" id="cd-sub">Kelola company profile dan lowongan dari satu tempat.</div></div><button class="btn-search" onclick="showPage('companies');loadCompanies()">Lihat Company Profile</button></div>
-  <div class="company-admin-grid"><div>
-    <div class="company-admin-card"><div class="company-admin-card-title">Company Profile</div><div class="photo-upload-row"><div class="photo-preview-sm" id="cd-logo-preview">CO</div><div><input type="file" id="company-logo-input" accept="image/png,image/jpeg,image/webp" style="display:none" onchange="uploadCompanyLogo()"><button class="btn-upload-photo" onclick="document.getElementById('company-logo-input').click()">Upload Logo Perusahaan</button><div class="edit-hint">JPG, PNG, atau WEBP, maks. 2 MB.</div></div></div><div class="edit-two-col"><div class="edit-group"><label class="edit-label">Nama Perusahaan *</label><input class="edit-input" id="cd-name" type="text"></div><div class="edit-group"><label class="edit-label">Industri</label><input class="edit-input" id="cd-industry" type="text"></div></div><div class="edit-two-col"><div class="edit-group"><label class="edit-label">Kota</label><input class="edit-input" id="cd-city" type="text"></div><div class="edit-group"><label class="edit-label">Website</label><input class="edit-input" id="cd-website" type="url"></div></div><div class="edit-group"><label class="edit-label">Tagline</label><input class="edit-input" id="cd-tagline" type="text"></div><div class="edit-group"><label class="edit-label">Perkenalan Company</label><textarea class="edit-textarea" id="cd-desc"></textarea></div><div class="edit-group"><label class="edit-label">Sedang mencari kandidat seperti apa?</label><textarea class="edit-textarea" id="cd-looking"></textarea></div><div class="edit-footer"><button class="btn-save-profile" onclick="saveCompanyProfile()">Simpan Company Profile</button></div></div>
-    <div class="company-admin-card"><div class="company-admin-card-title">Tambah Lowongan</div><div class="edit-two-col"><div class="edit-group"><label class="edit-label">Judul Lowongan *</label><input class="edit-input" id="job-title-new" type="text"></div><div class="edit-group"><label class="edit-label">Lokasi *</label><input class="edit-input" id="job-location-new" type="text"></div></div><div class="edit-two-col"><div class="edit-group"><label class="edit-label">Tipe *</label><select class="edit-input" id="job-type-new"><option>Full-time</option><option>Part-time</option><option>Internship</option><option>Freelance</option><option>Contract</option></select></div><div class="edit-group"><label class="edit-label">Mode Kerja *</label><select class="edit-input" id="job-mode-new"><option>On-site</option><option>Hybrid</option><option>Remote</option></select></div></div><div class="edit-two-col"><div class="edit-group"><label class="edit-label">Pengalaman</label><input class="edit-input" id="job-exp-new" type="text"></div><div class="edit-group"><label class="edit-label">Gaji Min / Max</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><input class="edit-input" id="job-salary-min-new" type="number"><input class="edit-input" id="job-salary-max-new" type="number"></div></div></div><div class="edit-group"><label class="edit-label">Deskripsi Lowongan *</label><textarea class="edit-textarea" id="job-desc-new"></textarea></div><div class="edit-group"><label class="edit-label">Kualifikasi</label><textarea class="edit-textarea" id="job-qual-new"></textarea></div><div class="edit-footer"><button class="btn-save-profile" onclick="createCompanyJob()">Terbitkan Lowongan</button></div></div>
-  </div><aside><div class="company-admin-card"><div class="company-admin-card-title">Lowongan Perusahaan</div><div class="company-job-list" id="cd-job-list"><div class="profile-empty">Belum ada lowongan.</div></div></div></aside></div>
+  <div class="company-admin-grid"><div class="company-admin-main">
+    <div class="company-forms-row">
+      <div class="company-admin-card"><div class="company-admin-card-title">Company Profile</div><div class="photo-upload-row"><div class="photo-preview-sm" id="cd-logo-preview">CO</div><div><input type="file" id="company-logo-input" accept="image/png,image/jpeg,image/webp" style="display:none" onchange="uploadCompanyLogo()"><button class="btn-upload-photo" onclick="document.getElementById('company-logo-input').click()">Upload Logo Perusahaan</button><div class="edit-hint">JPG, PNG, atau WEBP, maks. 2 MB.</div></div></div><div class="edit-two-col"><div class="edit-group"><label class="edit-label">Nama Perusahaan *</label><input class="edit-input" id="cd-name" type="text"></div><div class="edit-group"><label class="edit-label">Industri</label><input class="edit-input" id="cd-industry" type="text"></div></div><div class="edit-two-col"><div class="edit-group"><label class="edit-label">Kota</label><input class="edit-input" id="cd-city" type="text"></div><div class="edit-group"><label class="edit-label">Website</label><input class="edit-input" id="cd-website" type="url"></div></div><div class="edit-group"><label class="edit-label">Tagline</label><input class="edit-input" id="cd-tagline" type="text"></div><div class="edit-group"><label class="edit-label">Perkenalan Company</label><textarea class="edit-textarea" id="cd-desc"></textarea></div><div class="edit-group"><label class="edit-label">Sedang mencari kandidat seperti apa?</label><textarea class="edit-textarea" id="cd-looking"></textarea></div><div class="edit-footer"><button class="btn-save-profile" onclick="saveCompanyProfile()">Simpan Company Profile</button></div></div>
+      <div class="company-admin-card"><div class="company-admin-card-title">Tambah Lowongan</div><div class="edit-two-col"><div class="edit-group"><label class="edit-label">Judul Lowongan *</label><input class="edit-input" id="job-title-new" type="text"></div><div class="edit-group"><label class="edit-label">Lokasi *</label><input class="edit-input" id="job-location-new" type="text"></div></div><div class="edit-two-col"><div class="edit-group"><label class="edit-label">Tipe *</label><select class="edit-input" id="job-type-new"><option>Full-time</option><option>Part-time</option><option>Internship</option><option>Freelance</option><option>Contract</option></select></div><div class="edit-group"><label class="edit-label">Mode Kerja *</label><select class="edit-input" id="job-mode-new"><option>On-site</option><option>Hybrid</option><option>Remote</option></select></div></div><div class="edit-two-col"><div class="edit-group"><label class="edit-label">Pengalaman</label><input class="edit-input" id="job-exp-new" type="text"></div><div class="edit-group"><label class="edit-label">Gaji Min / Max</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><input class="edit-input" id="job-salary-min-new" type="number"><input class="edit-input" id="job-salary-max-new" type="number"></div></div></div><div class="edit-group"><label class="edit-label">Deskripsi Lowongan *</label><textarea class="edit-textarea" id="job-desc-new"></textarea></div><div class="edit-group"><label class="edit-label">Kualifikasi</label><textarea class="edit-textarea" id="job-qual-new"></textarea></div><div class="edit-footer"><button class="btn-save-profile" id="btn-save-job" onclick="createCompanyJob()">Terbitkan Lowongan</button></div></div>
+    </div>
+  </div><aside><div class="company-admin-card"><div class="company-admin-card-title-row"><div class="company-admin-card-title">Lamaran Masuk</div><span class="notif-badge" id="cd-app-count">0</span></div><div class="applicant-list" id="cd-applicant-list"><div class="profile-empty">Belum ada lamaran masuk.</div></div></div><div class="company-admin-card"><div class="company-admin-card-title">Lowongan Perusahaan</div><div class="company-job-list" id="cd-job-list"><div class="profile-empty">Belum ada lowongan.</div></div></div></aside></div>
 </div>
 </div>
 
+
+<!-- COMPANY APPLICATION DETAIL PAGE -->
+<div id="page-company-application" class="page">
+<div class="company-admin-wrap">
+  <div class="company-application-actions">
+    <button class="btn-back-dashboard" onclick="showPage('company-dashboard');loadCompanyDashboard()">Kembali ke Dashboard</button>
+  </div>
+  <div class="company-admin-card" id="cd-application-detail">
+    <div class="company-admin-card-title">Detail Lamaran</div>
+    <div class="profile-empty">Pilih pelamar dari daftar Lamaran Masuk untuk melihat profil dan dokumen lamarannya.</div>
+  </div>
+</div>
+</div>
 <!-- APPLY PAGE -->
 <div id="page-apply" class="page">
 <div class="apply-wrap">
@@ -3365,6 +3846,58 @@ function doLogout() {
     <div class="about-card"><h3>Untuk perusahaan</h3><p>Admin perusahaan bisa membuat company profile, mengunggah logo, menjelaskan kandidat yang dicari, dan menerbitkan lowongan setelah login.</p></div>
     <div class="about-card"><h3>Nilai utama</h3><p>Workaholic mengutamakan transparansi, profil yang informatif, dan pengalaman melamar kerja yang sederhana namun tetap profesional.</p></div>
   </div>
+
+  <div class="career-testimonials" style="margin-top:32px;">
+    <div class="career-section-head">
+      <div>
+        <div class="career-section-title">Cerita sukses dari pengguna Workaholic</div>
+        <div class="career-section-sub">Beberapa pengguna berhasil memperbaiki cara melamar, lebih siap interview, dan mendapatkan pekerjaan lewat proses yang lebih terarah.</div>
+      </div>
+    </div>
+    <div class="testimonial-slideshow">
+      <button class="testimonial-arrow testimonial-arrow-left" onclick="slideTestimonial(-1)">&#8249;</button>
+      <div class="testimonial-track-wrap">
+        <div class="testimonial-track" id="career-testimonial-list">
+          <div class="career-testimonial-card">
+            <div class="career-testimonial-top"><div class="career-testimonial-avatar">AP</div><div><div class="career-testimonial-name">Aulia Putri</div><div class="career-testimonial-role">Frontend Developer, Jakarta</div></div></div>
+            <div class="career-testimonial-text">Setelah CV direview, pengalaman magangku jadi lebih jelas dibaca. Dua minggu kemudian aku dapat panggilan interview dan akhirnya diterima sebagai Frontend Developer.</div>
+            <div class="career-testimonial-badge">Diterima kerja</div>
+          </div>
+          <div class="career-testimonial-card">
+            <div class="career-testimonial-top"><div class="career-testimonial-avatar">RA</div><div><div class="career-testimonial-name">Rafi Alamsyah</div><div class="career-testimonial-role">Data Analyst, Bandung</div></div></div>
+            <div class="career-testimonial-text">Latihan interview sangat membantu. Aku jadi tahu cara menjelaskan proyek data dengan runtut, bukan cuma menyebut tools yang pernah dipakai.</div>
+            <div class="career-testimonial-badge">Lolos interview</div>
+          </div>
+          <div class="career-testimonial-card">
+            <div class="career-testimonial-top"><div class="career-testimonial-avatar">NS</div><div><div class="career-testimonial-name">Nadya Safira</div><div class="career-testimonial-role">UI/UX Designer, Remote</div></div></div>
+            <div class="career-testimonial-text">Rekomendasi lowongannya lebih sesuai dengan portofolioku. Aku tidak buang waktu melamar posisi yang kurang cocok dan akhirnya dapat offer remote.</div>
+            <div class="career-testimonial-badge">Mendapat offer</div>
+          </div>
+        </div>
+      </div>
+      <button class="testimonial-arrow testimonial-arrow-right" onclick="slideTestimonial(1)">&#8250;</button>
+    </div>
+    <div class="testimonial-dots" id="testimonial-dots"></div>
+  </div>
+
+  <div class="career-feedback" style="margin-top:20px;">
+    <div class="career-feedback-copy">
+      <h3>Bagikan testimoni, kritik, atau saran</h3>
+      <p>Ceritakan pengalamanmu memakai Workaholic. Masukanmu membantu kami terus berkembang dan memberikan pengalaman yang lebih baik bagi semua pengguna.</p>
+    </div>
+    <div class="career-feedback-form">
+      <div class="career-feedback-row">
+        <input class="career-feedback-input" id="fb-name" type="text" placeholder="Nama lengkap">
+        <input class="career-feedback-input" id="fb-role" type="text" placeholder="Posisi / tujuan karir">
+      </div>
+      <div class="career-feedback-row">
+        <select class="career-feedback-select" id="fb-type"><option value="Testimoni">Testimoni</option><option value="Kritik">Kritik</option><option value="Saran">Saran</option></select>
+        <select class="career-feedback-select" id="fb-rating"><option value="5">Sangat puas</option><option value="4">Puas</option><option value="3">Cukup</option><option value="2">Kurang puas</option><option value="1">Tidak puas</option></select>
+      </div>
+      <textarea class="career-feedback-textarea" id="fb-message" placeholder="Tulis pengalaman, kritik, atau saran kamu..."></textarea>
+      <button class="career-feedback-submit" onclick="submitCareerFeedback()">Kirim Testimoni</button>
+    </div>
+  </div>
 </div>
 </div>
 
@@ -3378,11 +3911,13 @@ function doLogout() {
       <p class="career-help-lead">Tim Workaholic membantu kamu menyiapkan dokumen, latihan interview, dan menemukan lowongan yang paling sesuai dengan profil, pengalaman, serta target karirmu.</p>
     </div>
     <div class="career-help-panel">
-      <div class="career-help-panel-title">Mulai dari profilmu</div>
-      <p>Lengkapi profil Workaholic agar rekomendasi karir, saran CV, dan daftar lowongan bisa dibuat lebih relevan.</p>
+      <div class="career-help-panel-title">💬 Butuh bantuan karir?</div>
+      <p>Tim Workaholic siap membantu kamu lewat WhatsApp — mulai dari review CV, persiapan interview, sampai rekomendasi lowongan yang sesuai profilmu.</p>
       <div class="career-help-actions">
-        <button class="btn-cta-white" onclick="openProfile()">Lengkapi Profil</button>
-        <button class="btn-cta-outline" onclick="showPage('home')">Lihat Lowongan</button>
+        <a class="btn-cta-wa" href="https://wa.me/6288238037218?text=Halo%20Workaholic%2C%20saya%20ingin%20konsultasi%20karir." target="_blank" rel="noopener noreferrer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chat WhatsApp
+        </a>
       </div>
     </div>
   </div>
@@ -3420,51 +3955,6 @@ function doLogout() {
     </div>
   </div>
 
-
-  <div class="career-testimonials">
-    <div class="career-section-head">
-      <div>
-        <div class="career-section-title">Cerita sukses dari pengguna Workaholic</div>
-        <div class="career-section-sub">Beberapa pengguna berhasil memperbaiki cara melamar, lebih siap interview, dan mendapatkan pekerjaan lewat proses yang lebih terarah.</div>
-      </div>
-    </div>
-    <div class="career-testimonial-grid" id="career-testimonial-list">
-      <div class="career-testimonial-card">
-        <div class="career-testimonial-top"><div class="career-testimonial-avatar">AP</div><div><div class="career-testimonial-name">Aulia Putri</div><div class="career-testimonial-role">Frontend Developer, Jakarta</div></div></div>
-        <div class="career-testimonial-text">Setelah CV direview, pengalaman magangku jadi lebih jelas dibaca. Dua minggu kemudian aku dapat panggilan interview dan akhirnya diterima sebagai Frontend Developer.</div>
-        <div class="career-testimonial-badge">Diterima kerja</div>
-      </div>
-      <div class="career-testimonial-card">
-        <div class="career-testimonial-top"><div class="career-testimonial-avatar">RA</div><div><div class="career-testimonial-name">Rafi Alamsyah</div><div class="career-testimonial-role">Data Analyst, Bandung</div></div></div>
-        <div class="career-testimonial-text">Latihan interview sangat membantu. Aku jadi tahu cara menjelaskan proyek data dengan runtut, bukan cuma menyebut tools yang pernah dipakai.</div>
-        <div class="career-testimonial-badge">Lolos interview</div>
-      </div>
-      <div class="career-testimonial-card">
-        <div class="career-testimonial-top"><div class="career-testimonial-avatar">NS</div><div><div class="career-testimonial-name">Nadya Safira</div><div class="career-testimonial-role">UI/UX Designer, Remote</div></div></div>
-        <div class="career-testimonial-text">Rekomendasi lowongannya lebih sesuai dengan portofolioku. Aku tidak buang waktu melamar posisi yang kurang cocok dan akhirnya dapat offer remote.</div>
-        <div class="career-testimonial-badge">Mendapat offer</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="career-feedback">
-    <div class="career-feedback-copy">
-      <h3>Bagikan testimoni, kritik, atau saran</h3>
-      <p>Ceritakan pengalamanmu memakai konsultasi karir Workaholic. Masukanmu membantu kami memperbaiki review CV, persiapan interview, dan rekomendasi lowongan agar makin relevan.</p>
-    </div>
-    <div class="career-feedback-form">
-      <div class="career-feedback-row">
-        <input class="career-feedback-input" id="fb-name" type="text" placeholder="Nama lengkap">
-        <input class="career-feedback-input" id="fb-role" type="text" placeholder="Posisi / tujuan karir">
-      </div>
-      <div class="career-feedback-row">
-        <select class="career-feedback-select" id="fb-type"><option value="Testimoni">Testimoni</option><option value="Kritik">Kritik</option><option value="Saran">Saran</option></select>
-        <select class="career-feedback-select" id="fb-rating"><option value="5">Sangat puas</option><option value="4">Puas</option><option value="3">Cukup</option><option value="2">Kurang puas</option><option value="1">Tidak puas</option></select>
-      </div>
-      <textarea class="career-feedback-textarea" id="fb-message" placeholder="Tulis pengalaman, kritik, atau saran kamu..."></textarea>
-      <button class="career-feedback-submit" onclick="submitCareerFeedback()">Kirim Testimoni</button>
-    </div>
-  </div>
 
   <div class="career-help-flow">
     <div class="career-help-flow-title">Alur bantuan karir</div>
@@ -3519,7 +4009,7 @@ function doLogout() {
     </div>
     <div class="footer-cta-right">
       <button class="btn-cta-white" onclick="showPage('career-help')">Hubungi Kami</button>
-      <button class="btn-cta-outline" onclick="showPage('signup')">Daftar Gratis</button>
+      <button class="btn-cta-outline" id="cta-daftar-btn" onclick="showPage('signup')">Daftar Gratis</button>
     </div>
   </div>
 
@@ -3561,7 +4051,6 @@ function doLogout() {
       <ul class="footer-links">
         <li><a onclick="showPage('companies')">Daftar Perusahaan</a></li>
         <li><a onclick="showPage('home')">Cari Lowongan</a></li>
-        <li><a onclick="showPage('login')">Masuk / Daftar</a></li>
       </ul>
 
       <div style="height:20px"></div>
@@ -3702,9 +4191,14 @@ function doLogout() {
         <div class="profile-section-title" style="font-size:15px">Informasi Kontak</div>
         <div id="prof-kontak-display"><div class="profile-empty">Belum ada info kontak.</div></div>
       </div>
+      <div class="profile-section">
+        <div class="profile-section-title" style="font-size:15px">Lowongan Tersimpan</div>
+        <div id="saved-jobs-display"><div class="profile-empty">Belum ada lowongan yang disimpan.</div></div>
+      </div>
       <div class="profile-section" style="background:var(--ink);border-color:rgba(255,255,255,0.08)">
-        <div style="font-size:13px;font-weight:500;color:white;margin-bottom:12px">📋 Status Lamaran</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.7">Fitur riwayat lamaran akan segera hadir!</div>
+        <div style="font-size:13px;font-weight:500;color:white;margin-bottom:6px">Status & Riwayat Lamaran</div>
+        <div id="application-history-summary" style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:12px">Belum ada lamaran yang dikirim.</div>
+        <div id="application-history-display"><div style="font-size:12px;color:rgba(255,255,255,0.5);line-height:1.7">Riwayat lamaran akan muncul di sini setelah kamu melamar kerja.</div></div>
         <button onclick="showPage('home')" style="margin-top:14px;width:100%;padding:9px;background:var(--accent);color:white;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer">Cari Lowongan</button>
       </div>
     </div>
@@ -3725,6 +4219,8 @@ function openProfile() {
   }
   showPage('profile');
   loadProfile();
+  loadSavedJobs();
+  loadApplicationHistory();
 }
 
 function loadProfile() {
@@ -3745,12 +4241,18 @@ function loadProfile() {
 }
 
 function renderProfile(d) {
-  var nama = d.nama || loggedInUser || '—';
-  var initials = nama.split(' ').slice(0,2).map(function(w){return w[0];}).join('').toUpperCase();
+  d = d || {};
+  var nama = (d.nama && String(d.nama).trim() !== '') ? d.nama : (loggedInUser || '—');
+  var navImg = document.querySelector('#nav-avatar img');
+  var foto = (d.foto_profile && String(d.foto_profile).trim() !== '') ? d.foto_profile : (currentUserPhoto || (navImg ? navImg.getAttribute('src') : ''));
+  currentUserPhoto = foto;
+  d.nama = nama;
 
-  setAvatarElement(document.getElementById('profile-avatar-big'), nama, d.foto_profile || '');
-  setAvatarElement(document.getElementById('nav-avatar'), nama, d.foto_profile || '');
+  setAvatarElement(document.getElementById('profile-avatar-big'), nama, foto);
+  setAvatarElement(document.getElementById('nav-avatar'), nama, foto);
   document.getElementById('profile-name-display').textContent = nama;
+  document.getElementById('nav-username').textContent = nama;
+  loggedInUser = nama;
 
   var hl = document.getElementById('profile-headline-display');
   if (d.headline) { hl.textContent = d.headline; hl.style.fontStyle='normal'; hl.style.color='var(--ink-soft)'; }
@@ -3810,7 +4312,7 @@ function renderProfile(d) {
     ? 'Tambahkan: '+tips.slice(0,3).join(', ')+' untuk profil lebih lengkap.'
     : '🎉 Profil kamu sudah sangat lengkap!';
 
-  document.getElementById('ep-nama').value       = d.nama||'';
+  document.getElementById('ep-nama').value       = nama;
   document.getElementById('ep-headline').value   = d.headline||'';
   document.getElementById('ep-hp').value         = d.no_hp||'';
   document.getElementById('ep-lokasi').value     = d.lokasi||'';
@@ -3891,13 +4393,16 @@ function submitCareerFeedback() {
     .then(function(data){
       if (data.status === 'ok') {
         showToast(data.pesan);
-        var list = document.getElementById('career-testimonial-list');
-        if (list && type === 'Testimoni') {
-          var initials = name.split(' ').slice(0,2).map(function(w){return w.charAt(0);}).join('').toUpperCase() || 'U';
-          list.insertAdjacentHTML('afterbegin', '<div class="career-testimonial-card"><div class="career-testimonial-top"><div class="career-testimonial-avatar">' + escapeHtml(initials) + '</div><div><div class="career-testimonial-name">' + escapeHtml(name) + '</div><div class="career-testimonial-role">' + escapeHtml(role || 'Pengguna Workaholic') + '</div></div></div><div class="career-testimonial-text">' + escapeHtml(message) + '</div><div class="career-testimonial-badge">Testimoni baru</div></div>');
-        }
         document.getElementById('fb-name').value = ''; document.getElementById('fb-role').value = ''; document.getElementById('fb-message').value = '';
         document.getElementById('fb-rating').value = '5'; document.getElementById('fb-type').value = 'Testimoni';
+        // Reset list ke default 3 kartu lalu reload dari DB
+        var list = document.getElementById('career-testimonial-list');
+        if (list) {
+          list.innerHTML = '<div class="career-testimonial-card"><div class="career-testimonial-top"><div class="career-testimonial-avatar">AP</div><div><div class="career-testimonial-name">Aulia Putri</div><div class="career-testimonial-role">Frontend Developer, Jakarta</div></div></div><div class="career-testimonial-text">Setelah CV direview, pengalaman magangku jadi lebih jelas dibaca. Dua minggu kemudian aku dapat panggilan interview dan akhirnya diterima sebagai Frontend Developer.</div><div class="career-testimonial-badge">Diterima kerja</div></div><div class="career-testimonial-card"><div class="career-testimonial-top"><div class="career-testimonial-avatar">RA</div><div><div class="career-testimonial-name">Rafi Alamsyah</div><div class="career-testimonial-role">Data Analyst, Bandung</div></div></div><div class="career-testimonial-text">Latihan interview sangat membantu. Aku jadi tahu cara menjelaskan proyek data dengan runtut, bukan cuma menyebut tools yang pernah dipakai.</div><div class="career-testimonial-badge">Lolos interview</div></div><div class="career-testimonial-card"><div class="career-testimonial-top"><div class="career-testimonial-avatar">NS</div><div><div class="career-testimonial-name">Nadya Safira</div><div class="career-testimonial-role">UI/UX Designer, Remote</div></div></div><div class="career-testimonial-text">Rekomendasi lowongannya lebih sesuai dengan portofolioku. Aku tidak buang waktu melamar posisi yang kurang cocok dan akhirnya dapat offer remote.</div><div class="career-testimonial-badge">Mendapat offer</div></div>';
+        }
+        loadTestimonials();
+        // reset slideshow index
+        _slideIndex = 0;
       } else { showToast(data.pesan || 'Gagal mengirim testimoni!'); }
     })
     .catch(function(){ showToast('Gagal terhubung ke server!'); });
@@ -3945,5 +4450,65 @@ function uploadCompanyLogo() {
 }
 </script>
 
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+  import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBK_VN0CERu0wx099lG2G8M4YfgKvBMX5M",
+    authDomain: "workaholic-5e61a.firebaseapp.com",
+    projectId: "workaholic-5e61a",
+    storageBucket: "workaholic-5e61a.firebasestorage.app",
+    messagingSenderId: "509669953985",
+    appId: "1:509669953985:web:08195d208daa9232a2df40",
+    measurementId: "G-ZCZNHH0F9V"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+  provider.setCustomParameters({ prompt: 'select_account' });
+
+  window.startGoogleAuth = async function(type) {
+    const buttons = document.querySelectorAll('.btn-google');
+    buttons.forEach(function(btn){ btn.disabled = true; btn.dataset.oldText = btn.textContent; btn.textContent = 'Menghubungkan Google...'; });
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const idToken = await user.getIdToken();
+      const fd = new FormData();
+      fd.append('uid', user.uid || '');
+      fd.append('nama', user.displayName || 'Pengguna Google');
+      fd.append('email', user.email || '');
+      fd.append('foto', user.photoURL || '');
+      fd.append('id_token', idToken || '');
+
+      const isCompany = type === 'company';
+      const res = await fetch(isCompany ? 'company_google_auth.php' : 'google_auth.php', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (data.status === 'ok') {
+        if (isCompany) {
+          companyLoginSuccess(data.nama || user.displayName || 'Perusahaan Google');
+          if (data.logo) setAvatarElement(document.getElementById('nav-avatar'), data.nama, data.logo);
+        } else {
+          loginSuccess(data.nama || user.displayName || 'Pengguna Google');
+          currentUserPhoto = data.foto || user.photoURL || '';
+          if (currentUserPhoto) setAvatarElement(document.getElementById('nav-avatar'), data.nama, currentUserPhoto);
+        }
+      } else {
+        showToast(data.pesan || 'Gagal login dengan Google!', 'error');
+      }
+    } catch (error) {
+      console.error('Login Google gagal:', error);
+      var message = error && error.code === 'auth/popup-closed-by-user'
+        ? 'Login Google dibatalkan.'
+        : (type === 'company' ? 'Gagal login perusahaan dengan Google. Pastikan Google Sign-In aktif dan domain localhost diizinkan.' : 'Gagal login dengan Google. Pastikan Google Sign-In aktif di Firebase dan domain localhost diizinkan.');
+      showToast(message, 'error');
+    } finally {
+      buttons.forEach(function(btn){ btn.disabled = false; btn.textContent = btn.dataset.oldText || 'Login dengan Google'; });
+    }
+  };
+</script>
 </body>
 </html>
