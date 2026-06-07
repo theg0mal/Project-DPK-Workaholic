@@ -3252,7 +3252,7 @@ function doCompanySignup() {
 }
 function updateCtaDaftarBtn(){var b=document.getElementById('cta-daftar-btn');if(!b)return;b.style.display=loggedInUser?'none':'';}
 function updateCompanyNavLink(){var link=document.getElementById('nav-company-link');if(!link)return;link.textContent=loggedInType==='company'?'Dashboard Admin':'Untuk Perusahaan';}
-function companyLoginSuccess(name){loggedInUser=name;loggedInType='company';document.getElementById('nav-auth-btns').style.display='none';var badge=document.getElementById('nav-user-badge');badge.style.display='list-item';document.getElementById('nav-username').textContent=name;document.getElementById('nav-avatar').textContent=name.split(' ').slice(0,2).map(function(w){return w[0];}).join('').toUpperCase();updateCompanyNavLink();updateCtaDaftarBtn();showPage('company-dashboard');loadCompanyDashboard();showToast('Halo, admin '+name+'!');}
+function companyLoginSuccess(name, silent){loggedInUser=name;loggedInType='company';document.getElementById('nav-auth-btns').style.display='none';var badge=document.getElementById('nav-user-badge');badge.style.display='list-item';document.getElementById('nav-username').textContent=name;document.getElementById('nav-avatar').textContent=name.split(' ').slice(0,2).map(function(w){return w[0];}).join('').toUpperCase();updateCompanyNavLink();updateCtaDaftarBtn();if(!silent){showPage('company-dashboard');loadCompanyDashboard();showToast('Halo, admin '+name+'!');}}
 function loadCompanyDashboard(){fetch('company_session.php').then(function(r){return r.json();}).then(function(res){if(res.status!=='ok'){showToast(res.pesan);showPage('company-login');return;}var d=res.data;document.getElementById('cd-title').textContent=d.nama_perusahaan||'Company Dashboard';document.getElementById('cd-sub').textContent=(d.industri||'Perusahaan')+' · '+(d.kota||'Lokasi belum diisi');document.getElementById('cd-name').value=d.nama_perusahaan||'';document.getElementById('cd-industry').value=d.industri||'';document.getElementById('cd-city').value=d.kota||'';document.getElementById('cd-website').value=d.website||'';document.getElementById('cd-tagline').value=d.tagline||'';document.getElementById('cd-desc').value=d.deskripsi||'';document.getElementById('cd-looking').value=d.cari_kandidat||'';setAvatarElement(document.getElementById('cd-logo-preview'), d.nama_perusahaan, d.logo || '');setAvatarElement(document.getElementById('nav-avatar'), d.nama_perusahaan, d.logo || '');companyJobs=res.jobs||[];renderCompanyJobs(companyJobs);companyApplications=res.applications||[];renderCompanyApplications(companyApplications);}).catch(function(){showToast('Gagal memuat dashboard perusahaan!');});}
 function renderCompanyApplications(items){var list=document.getElementById('cd-applicant-list');var count=document.getElementById('cd-app-count');if(count)count.textContent=items.length;if(!list)return;if(!items.length){list.innerHTML='<div class="profile-empty">Belum ada lamaran masuk.</div>';return;}list.innerHTML=items.map(function(a,i){return '<div class="applicant-row" data-app-index="'+i+'" onclick="openCompanyApplication('+i+')"><div class="applicant-row-title"><span>'+escapeHtml(a.nama_lengkap||a.user_nama||'Pelamar')+'</span><span class="app-status">'+escapeHtml(a.status||'dikirim')+'</span></div><div class="applicant-row-meta">Melamar '+escapeHtml(a.job_title||'Lowongan')+'<br>'+escapeHtml(a.email||'')+' · '+escapeHtml(a.created_at||'')+'</div></div>';}).join('');}
 function appVal(v){return escapeHtml(v&&String(v).trim()!==''?v:'-');}
@@ -3528,19 +3528,20 @@ function doGoogleAuth(type) {
   showToast('Firebase sedang dimuat, coba lagi sebentar.');
 }
 
-function loginSuccess(name) {
+function loginSuccess(name, silent) {
   loggedInUser = name;
   loggedInType = 'user';
-  // Update navbar
   document.getElementById('nav-auth-btns').style.display = 'none';
   var badge = document.getElementById('nav-user-badge');
   badge.style.display = 'list-item';
   document.getElementById('nav-username').textContent = name;
   var initials = name.split(' ').slice(0,2).map(function(w){return w[0]}).join('').toUpperCase();
   document.getElementById('nav-avatar').textContent = initials;
-  showPage('home');
-  showToast('Halo, ' + name + '! Selamat datang di Workaholic 👋');
   updateCtaDaftarBtn();
+  if (!silent) {
+    showPage('home');
+    showToast('Halo, ' + name + '! Selamat datang di Workaholic 👋');
+  }
 }
 
 function doLogout() {
@@ -3557,7 +3558,22 @@ function doLogout() {
     });
 }
 
+function checkSession() {
+  fetch('check_session.php')
+    .then(function(res){ return res.json(); })
+    .then(function(data){
+      if (data.status !== 'ok') return;
+      if (data.type === 'user') {
+        loginSuccess(data.nama, true);
+      } else if (data.type === 'company') {
+        companyLoginSuccess(data.nama, true);
+      }
+    })
+    .catch(function(){});
+}
+
 loadAboutStats();
+checkSession();
 
 </script>
 </div></div><!-- end home-left --></div><!-- end home-layout -->
