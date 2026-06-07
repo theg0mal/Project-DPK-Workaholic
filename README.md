@@ -111,7 +111,7 @@ Workaholic is a multi-sided platform designed to serve both job seekers and empl
 
 ## 📬 Contact
 
-For career consultation or business inquiries, reach us via WhatsApp at **+62 882-3803-7218**.
+For career consultation or business inquiries, reach us via WhatsApp at **+62 882-3803-7218**. ( Dhani )
 
 ---
 
