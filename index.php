@@ -1137,6 +1137,20 @@
   }
   .nav-btn-signup:hover { background: var(--accent); }
 
+  .nav-btn-company {
+    padding: 7px 16px;
+    border: none;
+    border-radius: 7px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: white;
+    background: var(--accent);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .nav-btn-company:hover { background: #1B5235; }
+
   .user-badge {
     display: flex;
     align-items: center;
@@ -2137,8 +2151,8 @@
   .career-section-sub { font-size:13px; color:var(--ink-muted); line-height:1.6; max-width:520px; }
   .testimonial-slideshow { position:relative; display:flex; align-items:center; gap:12px; }
   .testimonial-track-wrap { overflow:hidden; flex:1; min-width:0; border-radius:12px; }
-  .testimonial-track { display:flex; gap:20px; transition:transform 0.4s cubic-bezier(.4,0,.2,1); will-change:transform; }
-  .career-testimonial-card { background:var(--paper); border:1px solid var(--warm-border); border-radius:12px; padding:24px; flex-shrink:0; box-sizing:border-box; }
+  .testimonial-track { display:flex; gap:16px; transition:transform 0.4s cubic-bezier(.4,0,.2,1); will-change:transform; }
+  .career-testimonial-card { background:var(--paper); border:1px solid var(--warm-border); border-radius:12px; padding:20px; flex-shrink:0; box-sizing:border-box; width:calc((100% - 32px) / 3); }
   .testimonial-arrow { width:40px; height:40px; border-radius:50%; border:1px solid var(--warm-border); background:var(--paper); color:var(--ink); font-size:26px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.15s; padding:0; font-family:sans-serif; line-height:1; }
   .testimonial-arrow:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-light); }
   .testimonial-dots { display:flex; justify-content:center; gap:7px; margin-top:14px; }
@@ -2265,10 +2279,10 @@
     <li><a href="#" onclick="showPage('about');return false;">About Us</a></li>
     <li><a href="#" onclick="showPage('home');return false;">Lowongan</a></li>
     <li><a href="#" onclick="showPage('companies');return false;">Perusahaan</a></li>
-    <li><a href="#" id="nav-company-link" onclick="if(loggedInType==='company'){showPage('company-dashboard');loadCompanyDashboard();}else{showPage('company-login');}return false;">Untuk Perusahaan</a></li>
-    <li id="nav-auth-btns" style="display:flex;gap:8px;list-style:none">
+    <li id="nav-auth-btns" style="display:flex;gap:8px;list-style:none;align-items:center;">
       <button class="nav-btn-login" onclick="showPage('login')">Masuk</button>
       <button class="nav-btn-signup" onclick="showPage('signup')">Daftar</button>
+      <button class="nav-btn-company" id="nav-company-link" onclick="if(loggedInType==='company'){showPage('company-dashboard');loadCompanyDashboard();}else{showPage('company-login');}">Untuk Perusahaan</button>
     </li>
     <li id="nav-user-badge" style="display:none">
       <div class="user-badge">
@@ -2290,11 +2304,11 @@
   </div>
   <div class="hero-stats">
     <div class="stat-item">
-      <span class="stat-num">2.400+</span>
+      <span class="stat-num" id="hero-stat-lowongan">-</span>
       <span class="stat-lbl">Lowongan aktif</span>
     </div>
     <div class="stat-item">
-      <span class="stat-num">850+</span>
+      <span class="stat-num" id="hero-stat-perusahaan">-</span>
       <span class="stat-lbl">Perusahaan</span>
     </div>
     <div class="stat-item">
@@ -2567,8 +2581,31 @@ function setLogoElement(el, item) {
 
 function setAvatarElement(el, name, photoUrl) {
   if (!el) return;
-  var initials = (name || 'U').split(' ').slice(0,2).map(function(w){return w[0];}).join('').toUpperCase();
-  el.innerHTML = photoUrl ? '<img class="avatar-img" src="' + escapeHtml(photoUrl) + '" alt="">' : escapeHtml(initials);
+
+  var cleanName = (name && String(name).trim() !== '') ? String(name).trim() : 'User';
+  var initials = cleanName
+    .split(' ')
+    .slice(0, 2)
+    .map(function(w) { return w.charAt(0); })
+    .join('')
+    .toUpperCase() || 'U';
+
+  var cleanPhoto = (photoUrl && String(photoUrl).trim() !== '') ? String(photoUrl).trim() : '';
+
+  if (cleanPhoto) {
+    var img = document.createElement('img');
+    img.className = 'avatar-img';
+    img.src = cleanPhoto;
+    img.alt = '';
+    img.onerror = function() {
+      el.textContent = initials;
+    };
+
+    el.innerHTML = '';
+    el.appendChild(img);
+  } else {
+    el.textContent = initials;
+  }
 }
 function renderJobs() {
   var list = document.getElementById('job-list');
@@ -2689,16 +2726,27 @@ function closeModalDirect() {
   document.body.style.overflow = '';
 }
 
+function requireUserAccountForApply() {
+  if (loggedInUser && loggedInType === 'user') return true;
+  closeModalDirect();
+  showToast('Daftar atau login dulu untuk melamar kerja.', 'error');
+  showPage('signup');
+  return false;
+}
+
 function applyJob() {
+  if (!requireUserAccountForApply()) return;
   closeModalDirect();
   openApplyPage(currentJobId);
 }
 
 function applyDirect(id) {
+  if (!requireUserAccountForApply()) return;
   openApplyPage(id);
 }
 
 function openApplyPage(id) {
+  if (!requireUserAccountForApply()) return;
   currentJobId = id;
   var j = jobs.find(function(x){return x.id===id});
   if(!j) return;
@@ -3054,6 +3102,51 @@ document.addEventListener('keydown', function(e){
   if(e.key==='Escape') closeModalDirect();
 });
 
+function focusNextOrSubmit(ids, submitAction) {
+  ids.forEach(function(id, index) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('keydown', function(e) {
+      if (e.key !== 'Enter' || e.isComposing) return;
+      var isTextarea = el.tagName && el.tagName.toLowerCase() === 'textarea';
+      if (isTextarea && !e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+
+      var next = null;
+      for (var i = index + 1; i < ids.length; i++) {
+        var candidate = document.getElementById(ids[i]);
+        if (candidate && !candidate.disabled && candidate.offsetParent !== null) {
+          next = candidate;
+          break;
+        }
+      }
+      if (next) {
+        next.focus();
+        if (typeof next.select === 'function' && next.tagName.toLowerCase() !== 'select') next.select();
+        return;
+      }
+      if (typeof submitAction === 'function') submitAction();
+    });
+  });
+}
+
+function setupEnterKeyboardFlow() {
+  focusNextOrSubmit(['login-email','login-pass'], doLogin);
+  focusNextOrSubmit(['signup-fname','signup-lname','signup-email','signup-pass','signup-pass2'], doSignup);
+  focusNextOrSubmit(['cl-email','cl-pass'], doCompanyLogin);
+  focusNextOrSubmit(['cs-name','cs-industry','cs-email','cs-city','cs-website','cs-desc','cs-looking','cs-pass','cs-pass2'], doCompanySignup);
+
+  focusNextOrSubmit(['cd-name','cd-industry','cd-city','cd-website','cd-tagline','cd-desc','cd-looking'], saveCompanyProfile);
+  focusNextOrSubmit(['job-title-new','job-location-new','job-type-new','job-mode-new','job-exp-new','job-salary-min-new','job-salary-max-new','job-desc-new','job-qual-new'], createCompanyJob);
+  focusNextOrSubmit(['ep-nama','ep-headline','ep-hp','ep-lokasi','ep-tentang','ep-skills','ep-pengalaman','ep-pendidikan','ep-linkedin','ep-portfolio'], saveProfile);
+
+  focusNextOrSubmit(['ap-name','ap-email','ap-phone','ap-city','ap-linkedin','ap-portfolio','ap-edu','ap-exp','ap-salary','ap-start'], function(){ applyNextStep(2); });
+  focusNextOrSubmit(['ap-coverletter'], function(){ applyNextStep(3); });
+  focusNextOrSubmit(['ap-q1','ap-q2','ap-skills','ap-relocate'], function(){ applyNextStep(4); });
+}
+
+document.addEventListener('DOMContentLoaded', setupEnterKeyboardFlow);
+
 
 var companies = [];
 var companyApplications = [];
@@ -3267,19 +3360,39 @@ function showPage(name) {
   var footer  = document.getElementById('global-footer');
   if(marquee) marquee.style.display = hide ? 'none' : '';
   if(footer)  footer.style.display  = hide ? 'none' : '';
-  if(name === 'companies') loadCompanies();
+  if(name === 'companies') { loadCompanies(); loadAboutStats(); }
   if(name === 'company-dashboard') loadCompanyDashboard();
-  if(name === 'about') loadTestimonials();
+  if(name === 'about') { loadTestimonials(); populateCareerFeedbackProfile(); loadAboutStats(); }
+  if(name === 'home') loadAboutStats();
+  if(name === 'career-help') populateCareerFeedbackProfile();
 }
 
+function loadAboutStats() {
+  fetch('about_stats.php')
+    .then(function(res){ return res.json(); })
+    .then(function(res){
+      if (res.status !== 'ok') return;
+      var el;
+      el = document.getElementById('stat-lowongan');    if (el) el.textContent = res.lowongan;
+      el = document.getElementById('stat-akun');        if (el) el.textContent = res.akun;
+      el = document.getElementById('stat-perusahaan');  if (el) el.textContent = res.perusahaan;
+      el = document.getElementById('hero-stat-lowongan');   if (el) el.textContent = res.lowongan;
+      el = document.getElementById('hero-stat-perusahaan'); if (el) el.textContent = res.perusahaan;
+      el = document.getElementById('kicker-perusahaan');    if (el) el.textContent = res.perusahaan;
+    })
+    .catch(function(){});
+}
+
+var DEFAULT_TESTIMONIALS = '<div class="career-testimonial-card"><div class="career-testimonial-top"><div class="career-testimonial-avatar">AP</div><div><div class="career-testimonial-name">Aulia Putri</div><div class="career-testimonial-role">Frontend Developer, Jakarta</div></div></div><div class="career-testimonial-text">Setelah CV direview, pengalaman magangku jadi lebih jelas dibaca. Dua minggu kemudian aku dapat panggilan interview dan akhirnya diterima sebagai Frontend Developer.</div><div class="career-testimonial-badge">Diterima kerja</div></div><div class="career-testimonial-card"><div class="career-testimonial-top"><div class="career-testimonial-avatar">RA</div><div><div class="career-testimonial-name">Rafi Alamsyah</div><div class="career-testimonial-role">Data Analyst, Bandung</div></div></div><div class="career-testimonial-text">Latihan interview sangat membantu. Aku jadi tahu cara menjelaskan proyek data dengan runtut, bukan cuma menyebut tools yang pernah dipakai.</div><div class="career-testimonial-badge">Lolos interview</div></div><div class="career-testimonial-card"><div class="career-testimonial-top"><div class="career-testimonial-avatar">NS</div><div><div class="career-testimonial-name">Nadya Safira</div><div class="career-testimonial-role">UI/UX Designer, Remote</div></div></div><div class="career-testimonial-text">Rekomendasi lowongannya lebih sesuai dengan portofolioku. Aku tidak buang waktu melamar posisi yang kurang cocok dan akhirnya dapat offer remote.</div><div class="career-testimonial-badge">Mendapat offer</div></div>';
+
 function loadTestimonials() {
+  var list = document.getElementById('career-testimonial-list');
+  if (list) list.innerHTML = DEFAULT_TESTIMONIALS;
   fetch('load_testimonials.php')
     .then(function(res){ return res.json(); })
     .then(function(res){
-      if (res.status !== 'ok' || !res.data.length) { initSlideshow(); return; }
-      var list = document.getElementById('career-testimonial-list');
       if (!list) { initSlideshow(); return; }
-      var existing = list.innerHTML;
+      if (res.status !== 'ok' || !res.data.length) { initSlideshow(); return; }
       var html = res.data.map(function(t){
         var initials = t.nama.split(' ').slice(0,2).map(function(w){return w.charAt(0);}).join('').toUpperCase() || 'U';
         return '<div class="career-testimonial-card">'
@@ -3290,7 +3403,7 @@ function loadTestimonials() {
           + '<div class="career-testimonial-badge">Testimoni</div>'
           + '</div>';
       }).join('');
-      list.innerHTML = html + existing;
+      list.innerHTML = html + DEFAULT_TESTIMONIALS;
       initSlideshow();
     })
     .catch(function(){ initSlideshow(); });
@@ -3443,6 +3556,8 @@ function doLogout() {
       showToast('Kamu telah keluar. Sampai jumpa!');
     });
 }
+
+loadAboutStats();
 
 </script>
 </div></div><!-- end home-left --></div><!-- end home-layout -->
@@ -3806,7 +3921,7 @@ function doLogout() {
 <div id="page-companies" class="page">
 <div class="companies-wrap">
   <div class="companies-hero">
-    <div class="hero-kicker">850+ Perusahaan</div>
+    <div class="hero-kicker"><span id="kicker-perusahaan">-</span> Perusahaan</div>
     <h2>Kenali <em style="font-style:italic;color:var(--accent)">Perusahaan</em> Impianmu.</h2>
     <p>Pelajari latar belakang, budaya, dan lowongan tersedia dari ratusan perusahaan terpercaya.</p>
   </div>
@@ -3836,9 +3951,9 @@ function doLogout() {
   </div>
 
   <div class="about-stats">
-    <div class="about-stat"><strong>12+</strong><span>Lowongan demo aktif</span></div>
-    <div class="about-stat"><strong>2</strong><span>Jenis akun: pencari kerja dan perusahaan</span></div>
-    <div class="about-stat"><strong>1</strong><span>Tempat untuk profil, lamaran, dan lowongan</span></div>
+    <div class="about-stat"><strong id="stat-lowongan">-</strong><span>Lowongan aktif</span></div>
+    <div class="about-stat"><strong id="stat-akun">-</strong><span>Akun terdaftar</span></div>
+    <div class="about-stat"><strong id="stat-perusahaan">-</strong><span>Perusahaan bergabung</span></div>
   </div>
 
   <div class="about-grid">
@@ -3886,7 +4001,7 @@ function doLogout() {
       <p>Ceritakan pengalamanmu memakai Workaholic. Masukanmu membantu kami terus berkembang dan memberikan pengalaman yang lebih baik bagi semua pengguna.</p>
     </div>
     <div class="career-feedback-form">
-      <div class="career-feedback-row">
+      <div class="career-feedback-row" id="fb-profile-fields">
         <input class="career-feedback-input" id="fb-name" type="text" placeholder="Nama lengkap">
         <input class="career-feedback-input" id="fb-role" type="text" placeholder="Posisi / tujuan karir">
       </div>
@@ -4379,7 +4494,50 @@ function saveProfile() {
 }
 
 
+function careerFeedbackProfileValues(data) {
+  data = data || profileData || {};
+  var name = (data.nama && String(data.nama).trim() !== '') ? data.nama : (loggedInUser || '');
+  var role = (data.headline && String(data.headline).trim() !== '') ? data.headline : '-';
+  return { name: name, role: role };
+}
+
+function setCareerFeedbackFields(values, locked) {
+  var nameEl = document.getElementById('fb-name');
+  var roleEl = document.getElementById('fb-role');
+  var row = document.getElementById('fb-profile-fields');
+  if (!nameEl || !roleEl) return;
+  if (values.name) nameEl.value = values.name;
+  roleEl.value = values.role || '-';
+  nameEl.readOnly = !!locked;
+  roleEl.readOnly = !!locked;
+}
+
+function populateCareerFeedbackProfile() {
+  var nameEl = document.getElementById('fb-name');
+  var roleEl = document.getElementById('fb-role');
+  var row = document.getElementById('fb-profile-fields');
+  if (!nameEl || !roleEl) return;
+  if (!loggedInUser || loggedInType !== 'user') {
+    nameEl.readOnly = false;
+    roleEl.readOnly = false;
+    return;
+  }
+  if (row) row.style.display = 'none';
+  setCareerFeedbackFields(careerFeedbackProfileValues(profileData), true);
+  fetch('get_profile.php')
+    .then(function(res){ return res.json(); })
+    .then(function(res){
+      if (res.status === 'ok') {
+        profileData = res.data || profileData;
+        setCareerFeedbackFields(careerFeedbackProfileValues(profileData), true);
+      }
+    })
+    .catch(function(){ setCareerFeedbackFields(careerFeedbackProfileValues(profileData), true); });
+}
+
 function submitCareerFeedback() {
+  if (!loggedInUser || loggedInType !== 'user') { showToast('Daftar atau login dulu untuk mengirim testimoni.', 'error'); showPage('signup'); return; }
+  setCareerFeedbackFields(careerFeedbackProfileValues(profileData), true);
   var name = document.getElementById('fb-name').value.trim();
   var role = document.getElementById('fb-role').value.trim();
   var type = document.getElementById('fb-type').value;
@@ -4393,7 +4551,7 @@ function submitCareerFeedback() {
     .then(function(data){
       if (data.status === 'ok') {
         showToast(data.pesan);
-        document.getElementById('fb-name').value = ''; document.getElementById('fb-role').value = ''; document.getElementById('fb-message').value = '';
+        if (loggedInUser && loggedInType === 'user') { populateCareerFeedbackProfile(); } else { document.getElementById('fb-name').value = ''; document.getElementById('fb-role').value = ''; } document.getElementById('fb-message').value = '';
         document.getElementById('fb-rating').value = '5'; document.getElementById('fb-type').value = 'Testimoni';
         // Reset list ke default 3 kartu lalu reload dari DB
         var list = document.getElementById('career-testimonial-list');
